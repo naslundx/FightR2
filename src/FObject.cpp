@@ -112,10 +112,13 @@ void FObject::freeze()
 
 void FObject::tick(float delta)
 {
-	if (m_gravity)
+	if (isGravitational())
 	{
-		//TODO
+		FVector down(0.f, -0.5f * delta);
+		accelerate(down);
 	}
+	
+	m_position += m_velocity;
 }
 
 int FObject::createID()
