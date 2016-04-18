@@ -14,34 +14,38 @@ Instructions for Windows and OS X will follow later when things are working.
 - [ ] Rendering of powerups
 - [ ] Basic character-wall collision detection
 - [ ] Move characters left-right
+- [ ] Jumping
+- [ ] Gravity
 
 ### Version 0.02
-- [ ] Implement a test weapon and projectile
+- [ ] Implement two test weapons and projectiles
 - [ ] Handle fire of weapon
+- [ ] Handle weapon switching
 - [ ] Projectile-Character collision detection
 - [ ] Projectile-Wall collision detection
 - [ ] Rendering of weapons
 - [ ] Rendering of projectiles
 
 ### Version 0.03
-- [ ] Jumping
-- [ ] Gravity
-- [ ] Implement second weapon and weapon switching
 - [ ] Implement test powerups
 - [ ] Game logic (stop when a team has won)
-- [ ] Render player stats
-
-### Version 0.04
+- [ ] Basic rendering of player stats
 - [ ] Basic AI
-- [ ] Render proper bitmaps
+- [ ] Implement ladders and climbing
+- [ ] Render basic graphic effects
+- [ ] Better level randomization
 
 ### Version 0.1 (BETA)
-- [ ] Basic UI for starting, restarting, ending, a game
-- [ ] Render basic graphic effects
+- [ ] General bug fixes, clean memory leaks
+- [ ] Basic UI for starting, restarting, ending a game
+- [ ] Improved in-game UI (better player stats rendering)
 - [ ] Document running on Windows and OS X
 
 ### Version 0.2 (BETA 2)
-- [ ] More weapons, projectiles, powerups, effects
+- [ ] Write good levels
+- [ ] More weapons and projectiles
+- [ ] More powerups
+- [ ] More effects
 - [ ] Animated character(s)
 - [ ] Clean up and document code
 - [ ] Optimize for efficiency
