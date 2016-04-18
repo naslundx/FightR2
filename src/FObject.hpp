@@ -28,7 +28,7 @@ public:
 	void setGravitational(bool);
 	void setVisible(bool);
 	void freeze();
-	virtual void tick();
+	virtual void tick(float);
 
 protected:
 	FVector m_position, m_size, m_velocity;

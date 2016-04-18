@@ -110,7 +110,7 @@ void FObject::freeze()
 	m_velocity = FVector();
 }
 
-void FObject::tick()
+void FObject::tick(float delta)
 {
 	if (m_gravity)
 	{
