@@ -51,6 +51,11 @@ int FEngine::getTickCount()
 	return m_ticks;
 }
 
+float FEngine::getTime()
+{
+	return m_time;
+}
+
 void FEngine::createProjectile()
 {
 	//TODO

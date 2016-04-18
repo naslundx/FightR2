@@ -25,6 +25,7 @@ public:
 	
 	void print();
 	int getTickCount();
+	float getTime();
 	
 	void createProjectile();
 	void createPowerup();

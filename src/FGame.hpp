@@ -14,9 +14,11 @@ public:
 	
 	void run();	
 private:
+	void processEvents();
+	void render();
+
 	std::unique_ptr<sf::RenderWindow> m_window;
 	std::shared_ptr<FEngine> m_engine;
-	
 	int m_width, m_height, m_tileSize;
 	//sf::Sprite loadSprite(std::string);
 };

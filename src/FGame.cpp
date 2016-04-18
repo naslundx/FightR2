@@ -33,6 +33,59 @@ FGame::FGame(std::shared_ptr<FEngine> engine)
 	
 void FGame::run()
 {
+	sf::Clock clock;
+	sf::Time accumulator = sf::Time::Zero;
+	sf::Time ups = sf::seconds(1.f / 60.f);
+	
+	while (m_window->isOpen() && m_engine->isRunning() && m_engine->getTickCount() < 100)
+	{
+		std::cout << m_engine->getTickCount() << ", " << m_engine->getTime() << std::endl;
+
+		processEvents();
+		
+		while (accumulator > ups)
+		{
+			accumulator -= ups;
+			m_engine->tick(ups.asSeconds());
+			m_engine->print();
+		}
+		
+		render();
+		accumulator += clock.restart();	
+	}
+}
+
+void FGame::processEvents()
+{
+	// Check events
+	sf::Event event;
+	while (m_window->pollEvent(event))
+	{
+		if (event.type == sf::Event::Closed)
+			m_window->close();
+	}
+	
+	// Check keyboard press
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+	{
+		//TODO
+	}
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+	{
+		//TODO
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+	{
+		//TODO
+	}
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+	{
+		//TODO
+	}
+}
+
+void FGame::render()
+{
 	// Load textures and sprites
 	sf::Texture texture1, texture2;
 	if (!texture1.loadFromFile("images/Sandstone.png", sf::IntRect(0, 0, m_tileSize, m_tileSize)))
@@ -46,23 +99,12 @@ void FGame::run()
 	sf::Sprite sprite1, sprite2;
 	sprite1.setTexture(texture1);
 	sprite2.setTexture(texture2);
-
-	//sprite1 = loadSprite("images/Sandstone.png");
-	//sprite2 = loadSprite("images/Metalplates.png");
-
-	while (m_window->isOpen() && m_engine->isRunning() && m_engine->getTickCount() < 100)
-	{
-		std::cout << m_engine->getTickCount() << std::endl;
+	
+	// Clear
+	m_window->clear();
 		
-		// Update
-		m_engine->tick(0.f);
-		m_engine->print();
-		
-		// Render
-		m_window->clear();
-		
-		//...render all tiles
-		for (int y = 0; y < m_height; y++)
+	// Render all tiles
+	for (int y = 0; y < m_height; y++)
 			for (int x = 0; x < m_width; x++) {
 				char data = m_engine->getLevel()->get(x, y);
 				if(data == 'a')
@@ -78,13 +120,6 @@ void FGame::run()
 			}
 		
 		m_window->display();
-		
-		// Check any keyboard inputs
-		sf::Event event;
-		while (m_window->pollEvent(event))
-		{
-			if (event.type == sf::Event::Closed)
-				m_window->close();
-		}
-	}
+	
+	m_window->display();
 }
