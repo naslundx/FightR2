@@ -95,29 +95,37 @@ void FGame::processEvents()
 
 void FGame::render()
 {
-	// Load sprites
-	auto sprite1 = loadSprite("images/Sandstone.png", 10, 10);
-	auto sprite2 = loadSprite("images/Metalplates.png", 10, 10);
-	
-	// Clear
 	m_window->clear();
 		
 	// Render all tiles
 	for (int y = 0; y < m_height; y++)
-			for (int x = 0; x < m_width; x++) {
-				sf::Vector2f position(x * m_tileSize, y * m_tileSize);
-				char data = m_engine->getLevel()->get(x, y);
-				if(data == 'a')
-				{
-					sprite2->setPosition(position);
-					m_window->draw(*sprite2);
-				}
-				else
-				{
-					sprite1->setPosition(position);
-					m_window->draw(*sprite1);
-				}
+		for (int x = 0; x < m_width; x++) {
+			std::shared_ptr<sf::Sprite> sprite;
+			char data = m_engine->getLevel()->get(x, y);
+			switch (data)
+			{
+				case 'a':
+					sprite = loadSprite("images/Metalplates.png", 10, 10);
+					break;
+				default:
+					sprite = loadSprite("images/Sandstone.png", 10, 10);
 			}
-		
+			sf::Vector2f position(x * m_tileSize, y * m_tileSize);
+			sprite->setPosition(position);
+			m_window->draw(*sprite);
+		}
+			
+	// Render characters
+	//TODO
+	
+	// Render weapons
+	//TODO
+	
+	// Render projectiles
+	//TODO
+	
+	// Render effects
+	//TODO
+
 	m_window->display();
 }
