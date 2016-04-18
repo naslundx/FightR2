@@ -1,5 +1,7 @@
 #include "FGame.hpp"
 
+//Images were downloaded from opengameart.org
+
 FGame::FGame(std::shared_ptr<FEngine> engine)
 {
 	m_engine = engine;
@@ -15,9 +17,39 @@ FGame::FGame(std::shared_ptr<FEngine> engine)
 	);
 	m_window = std::unique_ptr<sf::RenderWindow>(window);		
 }
+
+// TODO: Find a way to keep textures not destroyed
+//sf::Sprite FGame::loadSprite(std::string fileName)
+//{
+//	sf::Texture texture;
+//	if (!texture.loadFromFile(fileName, sf::IntRect(0, 0, m_tileSize, m_tileSize)))
+//	{
+//		std::cout << "ERROR in texture loading at " << __LINE__ << " in File" << __FILE__ << std::endl;
+//	}
+//	sf::Sprite sprite;
+//	sprite.setTexture(texture);
+//	return sprite;
+//}
 	
 void FGame::run()
 {
+	// Load textures and sprites
+	sf::Texture texture1, texture2;
+	if (!texture1.loadFromFile("images/Sandstone.png", sf::IntRect(0, 0, m_tileSize, m_tileSize)))
+	{
+		std::cout << "ERROR in texture1 loading at " << __LINE__ << " in File " << __FILE__ << std::endl;
+	}
+	if (!texture2.loadFromFile("images/Metalplates.png", sf::IntRect(0, 0, m_tileSize, m_tileSize)))
+	{
+		std::cout << "ERROR in texture2 loading at " << __LINE__ << " in File " << __FILE__ << std::endl;
+	}
+	sf::Sprite sprite1, sprite2;
+	sprite1.setTexture(texture1);
+	sprite2.setTexture(texture2);
+
+	//sprite1 = loadSprite("images/Sandstone.png");
+	//sprite2 = loadSprite("images/Metalplates.png");
+
 	while (m_window->isOpen() && m_engine->isRunning() && m_engine->getTickCount() < 100)
 	{
 		std::cout << m_engine->getTickCount() << std::endl;
@@ -32,13 +64,17 @@ void FGame::run()
 		//...render all tiles
 		for (int y = 0; y < m_height; y++)
 			for (int x = 0; x < m_width; x++) {
-				sf::RectangleShape tile(sf::Vector2f(10.f, 10.f));
-   				tile.setFillColor(sf::Color::Black);
-				tile.setPosition(x * m_tileSize, y * m_tileSize);
 				char data = m_engine->getLevel()->get(x, y);
-				if (data == 'a')
-					tile.setFillColor(sf::Color::Red);
-				m_window->draw(tile);
+				if(data == 'a')
+				{
+					sprite2.setPosition(sf::Vector2f(x * m_tileSize, y * m_tileSize));
+					m_window->draw(sprite2);
+				}
+				else
+				{
+					sprite1.setPosition(sf::Vector2f(x * m_tileSize, y * m_tileSize));
+					m_window->draw(sprite1);
+				}
 			}
 		
 		m_window->display();

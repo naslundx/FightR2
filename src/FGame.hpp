@@ -18,6 +18,7 @@ private:
 	std::shared_ptr<FEngine> m_engine;
 	
 	int m_width, m_height, m_tileSize;
+	//sf::Sprite loadSprite(std::string);
 };
 
 #endif
