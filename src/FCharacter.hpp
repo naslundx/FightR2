@@ -30,7 +30,7 @@ public:
 	
 private:
 	bool m_ai;
-	int m_currentWeapon, m_team;
+	int m_currentWeapon, m_team, m_jumpCounter;
 	std::vector<FWeapon> m_weapons;
 	std::string m_name;
 };

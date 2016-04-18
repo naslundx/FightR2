@@ -7,6 +7,7 @@ FCharacter::FCharacter(std::vector<FWeapon> weapons, std::string name, int team,
 	m_name = name;
 	m_team = team;
 	m_ai = ai;
+	m_jumpCounter = 0;
 }
 
 FCharacter::FCharacter(FVector position, FVector velocity, std::vector<FWeapon> weapons, std::string name, int team, bool ai)
@@ -16,6 +17,7 @@ FCharacter::FCharacter(FVector position, FVector velocity, std::vector<FWeapon> 
 	m_name = name;
 	m_team = team;
 	m_ai = ai;
+	m_jumpCounter = 0;
 }
 
 int FCharacter::getTeam()
@@ -35,12 +37,29 @@ bool FCharacter::isHuman()
 
 void FCharacter::move(FDirection direction)
 {
-	//TODO
+	FVector acceleration;
+	switch (direction)
+	{
+		case up:
+		case down:
+			//TODO Add ladders
+			break;
+		case left:
+			acceleration = FVector(-1.f, 0.f);
+			break;
+		case right:
+			acceleration = FVector(1.f, 0.f);
+			break;
+	}
+	accelerate(acceleration);
 }
 
 void FCharacter::jump()
 {
-	//TODO	
+	if (m_jumpCounter == 0)
+	{
+		m_jumpCounter = 15;	// jump for 15 frames
+	}
 }
 
 FWeapon& FCharacter::getWeapon()
@@ -66,9 +85,16 @@ void FCharacter::setWeaponIndex(int index)
 void FCharacter::updateAI()
 {
 	//TODO
+	move(FDirection left); // just do something
 }
 
 void FCharacter::tick(float delta)
 {
+	if (m_jumpCounter-- > 0)
+	{
+		FVector jumpVector(0.f, -1.f);
+		accelerate(jumpVector);		
+	}
+	
 	FObject::tick(delta);
 }
