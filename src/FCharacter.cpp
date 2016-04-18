@@ -85,7 +85,7 @@ void FCharacter::setWeaponIndex(int index)
 void FCharacter::updateAI()
 {
 	//TODO
-	move(FDirection left); // just do something
+	move(FDirection::left); // just do something
 }
 
 void FCharacter::tick(float delta)

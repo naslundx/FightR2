@@ -18,18 +18,27 @@ FGame::FGame(std::shared_ptr<FEngine> engine)
 	m_window = std::unique_ptr<sf::RenderWindow>(window);		
 }
 
-// TODO: Find a way to keep textures not destroyed
-//sf::Sprite FGame::loadSprite(std::string fileName)
-//{
-//	sf::Texture texture;
-//	if (!texture.loadFromFile(fileName, sf::IntRect(0, 0, m_tileSize, m_tileSize)))
-//	{
-//		std::cout << "ERROR in texture loading at " << __LINE__ << " in File" << __FILE__ << std::endl;
-//	}
-//	sf::Sprite sprite;
-//	sprite.setTexture(texture);
-//	return sprite;
-//}
+std::shared_ptr<sf::Sprite> FGame::loadSprite(std::string fileName, int width, int height)
+{
+	auto exists = m_sprites.find(fileName);
+	if (exists == m_sprites.end())
+	{
+		auto texture = std::make_shared<sf::Texture>();
+		if (!texture->loadFromFile(fileName, sf::IntRect(0, 0, width, height)))
+		{
+			std::cout << "ERROR trying to load " << fileName;
+		}
+		auto sprite = std::make_shared<sf::Sprite>();
+		sprite->setTexture(*texture);
+		m_sprites[fileName] = sprite;
+		m_textures[fileName] = texture;
+		return sprite;
+	}
+	else
+	{
+		return exists->second;
+	}	
+}
 	
 void FGame::run()
 {
@@ -86,19 +95,9 @@ void FGame::processEvents()
 
 void FGame::render()
 {
-	// Load textures and sprites
-	sf::Texture texture1, texture2;
-	if (!texture1.loadFromFile("images/Sandstone.png", sf::IntRect(0, 0, m_tileSize, m_tileSize)))
-	{
-		std::cout << "ERROR in texture1 loading at " << __LINE__ << " in File " << __FILE__ << std::endl;
-	}
-	if (!texture2.loadFromFile("images/Metalplates.png", sf::IntRect(0, 0, m_tileSize, m_tileSize)))
-	{
-		std::cout << "ERROR in texture2 loading at " << __LINE__ << " in File " << __FILE__ << std::endl;
-	}
-	sf::Sprite sprite1, sprite2;
-	sprite1.setTexture(texture1);
-	sprite2.setTexture(texture2);
+	// Load sprites
+	auto sprite1 = loadSprite("images/Sandstone.png", 10, 10);
+	auto sprite2 = loadSprite("images/Metalplates.png", 10, 10);
 	
 	// Clear
 	m_window->clear();
@@ -106,20 +105,19 @@ void FGame::render()
 	// Render all tiles
 	for (int y = 0; y < m_height; y++)
 			for (int x = 0; x < m_width; x++) {
+				sf::Vector2f position(x * m_tileSize, y * m_tileSize);
 				char data = m_engine->getLevel()->get(x, y);
 				if(data == 'a')
 				{
-					sprite2.setPosition(sf::Vector2f(x * m_tileSize, y * m_tileSize));
-					m_window->draw(sprite2);
+					sprite2->setPosition(position);
+					m_window->draw(*sprite2);
 				}
 				else
 				{
-					sprite1.setPosition(sf::Vector2f(x * m_tileSize, y * m_tileSize));
-					m_window->draw(sprite1);
+					sprite1->setPosition(position);
+					m_window->draw(*sprite1);
 				}
 			}
 		
-		m_window->display();
-	
 	m_window->display();
 }
