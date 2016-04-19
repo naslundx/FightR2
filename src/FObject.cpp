@@ -123,9 +123,12 @@ void FObject::halt()
 
 void FObject::tick(float delta)
 {
+	m_velocity = m_velocity * 0.97f;
+	if (m_velocity.getLength() < 0.001f)
+		m_velocity = FVector();
 	if (isGravitational())
 	{
-		FVector down(0.01f, 1.0f * delta);
+		FVector down(0.f, 1.0f * delta);
 		accelerate(down);
 	}
 	

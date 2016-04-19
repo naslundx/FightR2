@@ -45,10 +45,10 @@ void FCharacter::move(FDirection direction)
 			//TODO Add ladders
 			break;
 		case left:
-			acceleration = FVector(-1.f, 0.f);
+			acceleration = FVector(-0.09f, 0.f);
 			break;
 		case right:
-			acceleration = FVector(1.f, 0.f);
+			acceleration = FVector(0.09f, 0.f);
 			break;
 	}
 	accelerate(acceleration);

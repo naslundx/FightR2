@@ -24,7 +24,7 @@ int main(int argc, char** argv)
 	//TODO Add weapons
 	std::string nameone = "Marcus";
 	//std::string nametwo = "Lalala";
-	FCharacter one(FVector(50.f, 150.f), FVector(20.f, 40.f), std::vector<FWeapon>(), nameone, 1, false);
+	FCharacter one(FVector(250.f, 150.f), FVector(20.f, 40.f), std::vector<FWeapon>(), nameone, 1, false);
 	//FCharacter two(std::vector<FWeapon>(), nametwo, 2, true);
 	engine->addPlayer(one);
 	//engine->addPlayer(two);

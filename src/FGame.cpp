@@ -73,7 +73,7 @@ void FGame::processEvents()
 	}
 	
 	// Check keyboard press
-	auto characters = m_engine->getCharacters();
+	auto &characters = m_engine->getCharacters();
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 	{
 		std::cout << "moving left";
