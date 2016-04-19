@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <unordered_map>
+#include <algorithm>
 
 #include "FObject.hpp"
 #include "FEngine.hpp"

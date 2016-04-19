@@ -74,25 +74,29 @@ void FGame::processEvents()
 	
 	// Check keyboard press
 	auto &characters = m_engine->getCharacters();
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+	auto it = std::find_if(characters.begin(), characters.end(), [] (FCharacter& character) { return character.isHuman(); } );
+	if (it != characters.end())
 	{
-		std::cout << "moving left";
-		characters[0].move(FDirection::left);
-	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-	{
-		std::cout << "moving right";
-		characters[0].move(FDirection::right);
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-	{
-		std::cout << "moving up";
-		characters[0].move(FDirection::up);
-	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-	{
-		std::cout << "moving down";
-		characters[0].move(FDirection::down);
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+		{
+			std::cout << "moving left";
+			it->move(FDirection::left);
+		}
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+		{
+			std::cout << "moving right";
+			it->move(FDirection::right);
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+		{
+			std::cout << "moving up";
+			it->move(FDirection::up);
+		}
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+		{
+			std::cout << "moving down";
+			it->move(FDirection::down);
+		}
 	}
 }
 

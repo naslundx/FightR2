@@ -96,6 +96,11 @@ void FCharacter::tick(float delta)
 		accelerate(jumpVector);		
 	}
 	
+	if (m_ai)
+	{
+		updateAI();
+	}
+	
 	FObject::tick(delta);
 	
 	std::cout << "\nPos=" << this->m_position << "\nVel=" << this->m_velocity << "\n";
