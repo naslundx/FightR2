@@ -28,6 +28,9 @@ public:
 	void setGravitational(bool);
 	void setVisible(bool);
 	void freeze();
+	void land();
+	void halt();
+	
 	virtual void tick(float);
 
 protected:

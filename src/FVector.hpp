@@ -19,6 +19,8 @@ public:
 	double operator * (const FVector&);
 	FVector operator * (const double&);
 	FVector& operator *= (const double&);
+	
+	bool clampTo(float, float, float, float);
 
 	double x, y;
 };

@@ -107,14 +107,25 @@ void FObject::setVisible(bool value)
 
 void FObject::freeze()
 {
-	m_velocity = FVector();
+	land();
+	halt();
+}
+
+void FObject::land()
+{
+	m_velocity.y = 0.f;
+}
+
+void FObject::halt()
+{
+	m_velocity.x = 0.f;
 }
 
 void FObject::tick(float delta)
 {
 	if (isGravitational())
 	{
-		FVector down(0.f, -0.5f * delta);
+		FVector down(0.01f, 1.0f * delta);
 		accelerate(down);
 	}
 	

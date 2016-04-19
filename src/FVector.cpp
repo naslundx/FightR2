@@ -63,6 +63,32 @@ FVector& FVector::operator *= (const double& factor)
 	return *this;
 }
 
+bool FVector::clampTo(float minX, float minY, float maxX, float maxY)
+{
+	bool result = false;
+	if (x < minX)
+	{
+		x = minX;
+		result = true;
+	}
+	else if (x > maxX)
+	{
+		x = maxX;
+		result = true;
+	}
+	if (y < minY)
+	{
+		y = minY;
+		result = true;
+	}
+	else if (y > maxY)
+	{
+		y = maxY;
+		result = true;
+	}
+	return result;
+}
+
 std::ostream& operator<<(std::ostream& os, const FVector& obj)
 {
 	os << obj.x << "," << obj.y;

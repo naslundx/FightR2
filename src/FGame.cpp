@@ -46,10 +46,8 @@ void FGame::run()
 	sf::Time accumulator = sf::Time::Zero;
 	sf::Time ups = sf::seconds(1.f / 60.f);
 	
-	while (m_window->isOpen() && m_engine->isRunning() && m_engine->getTickCount() < 100)
+	while (m_window->isOpen() && m_engine->isRunning())
 	{
-		std::cout << m_engine->getTickCount() << ", " << m_engine->getTime() << std::endl;
-
 		processEvents();
 		
 		while (accumulator > ups)
@@ -75,21 +73,26 @@ void FGame::processEvents()
 	}
 	
 	// Check keyboard press
+	auto characters = m_engine->getCharacters();
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 	{
-		//TODO
+		std::cout << "moving left";
+		characters[0].move(FDirection::left);
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 	{
-		//TODO
+		std::cout << "moving right";
+		characters[0].move(FDirection::right);
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 	{
-		//TODO
+		std::cout << "moving up";
+		characters[0].move(FDirection::up);
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 	{
-		//TODO
+		std::cout << "moving down";
+		characters[0].move(FDirection::down);
 	}
 }
 
@@ -116,7 +119,13 @@ void FGame::render()
 		}
 			
 	// Render characters
-	//TODO
+	for (auto &character : m_engine->getCharacters())
+	{
+		//TODO Store filename in a unordered_map from character ID (int) to string
+		auto sprite = loadSprite("images/business.png", character.getSize().x, character.getSize().y);
+		sprite->setPosition(sf::Vector2f(character.getPosition().x, character.getPosition().y));
+		m_window->draw(*sprite);
+	}
 	
 	// Render weapons
 	//TODO
