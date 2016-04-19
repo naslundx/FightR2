@@ -9,24 +9,29 @@ Instructions for Windows and OS X will follow later when things are working.
 ## Roadmap
 
 ### Version 0.01
-- [ ] Rendering of tiles
-- [ ] Rendering of characters
+- [x] Rendering of tiles
+- [x] Rendering of characters
 - [ ] Rendering of powerups
-- [ ] Basic character-wall collision detection
-- [ ] Move characters left-right
+- [x] Basic character-wall collision detection
+- [x] Move character left-right
 - [ ] Jumping
-- [ ] Gravity
+- [x] Gravity
+- [x] Correctly identify human player for movement
+- [x] Call AI on AI characters
+- [ ] Improve object-to-texture mapping
 
 ### Version 0.02
 - [ ] Implement two test weapons and projectiles
+- [ ] Remove all frame-invariant hard-coded values
 - [ ] Handle fire of weapon
 - [ ] Handle weapon switching
 - [ ] Projectile-Character collision detection
 - [ ] Projectile-Wall collision detection
-- [ ] Rendering of weapons
 - [ ] Rendering of projectiles
+- [ ] Halt character when reaching left or right edge
 
 ### Version 0.03
+- [ ] Rendering of weapons
 - [ ] Implement test powerups
 - [ ] Game logic (stop when a team has won)
 - [ ] Basic rendering of player stats
@@ -37,6 +42,7 @@ Instructions for Windows and OS X will follow later when things are working.
 
 ### Version 0.1 (BETA)
 - [ ] General bug fixes, clean memory leaks
+- [ ] Improved AI
 - [ ] Basic UI for starting, restarting, ending a game
 - [ ] Improved in-game UI (better player stats rendering)
 - [ ] Document running on Windows and OS X
