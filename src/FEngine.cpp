@@ -86,7 +86,7 @@ void FEngine::collisionDetection()
 	{
 		auto position = character.getPosition(), size = character.getSize();
 		if (position.clampTo(0.f, 0.f, m_level->getWidth() * tileSize - size.x, m_level->getHeight() * tileSize - size.y))
-		 	character.freeze();
+		 	character.land();
 		
 		for (float x = position.x; x <= position.x + size.x; x += tileSize)
 		{
