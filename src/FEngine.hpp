@@ -19,6 +19,7 @@ public:
 	
 	void addPlayer(FCharacter);
 	std::shared_ptr<FLevel> getLevel();
+	std::vector<FCharacter>& getCharacters();
 		
 	void tick(float);
 	bool isRunning();
@@ -33,6 +34,8 @@ public:
 	
 private:
 	void clean();
+	void collisionDetection();
+	bool tileIsSolid(char tile);
 
 	std::vector<FCharacter> m_characters;
 	std::vector<FProjectile> m_projectiles;

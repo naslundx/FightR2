@@ -97,4 +97,6 @@ void FCharacter::tick(float delta)
 	}
 	
 	FObject::tick(delta);
+	
+	std::cout << "\nPos=" << this->m_position << "\nVel=" << this->m_velocity << "\n";
 }
