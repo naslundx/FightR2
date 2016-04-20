@@ -15,7 +15,11 @@ FGame::FGame(std::shared_ptr<FEngine> engine)
 		sf::VideoMode(m_width * m_tileSize, m_height * m_tileSize),
 		"FightR 2.0"
 	);
-	m_window = std::unique_ptr<sf::RenderWindow>(window);		
+	m_window = std::unique_ptr<sf::RenderWindow>(window);
+	
+	// Map types to filenames
+	//TODO This should be done externally through a method in this class
+	m_characterTypeMap[FCharacterType::DEBUG] = "images/business.png";	
 }
 
 std::shared_ptr<sf::Sprite> FGame::loadSprite(std::string fileName, int width, int height)
@@ -125,8 +129,7 @@ void FGame::render()
 	// Render characters
 	for (auto &character : m_engine->getCharacters())
 	{
-		//TODO Store filename in a unordered_map from character ID (int) to string
-		auto sprite = loadSprite("images/business.png", character.getSize().x, character.getSize().y);
+		auto sprite = loadSprite(m_characterTypeMap[character.getType()], character.getSize().x, character.getSize().y);
 		sprite->setPosition(sf::Vector2f(character.getPosition().x, character.getPosition().y));
 		m_window->draw(*sprite);
 	}

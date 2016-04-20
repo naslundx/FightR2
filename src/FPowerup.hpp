@@ -4,17 +4,18 @@
 #include <float.h>
 
 #include "FObject.hpp"
+#include "FTypes.hpp"
 
 class FPowerup : public FObject
 {
 public:
-	FPowerup(FVector, FVector, int, float);
+	FPowerup(FVector, FVector, FPowerupType, float);
 	void tick(float);
-	int getType();
+	FPowerupType getType();
 	bool isAlive();
 	
 private:
-	int m_type;
+	FPowerupType m_type;
 	float m_time;
 };
 

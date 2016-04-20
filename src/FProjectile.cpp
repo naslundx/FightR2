@@ -1,6 +1,6 @@
 #include "FProjectile.hpp"
 
-FProjectile::FProjectile(FVector position, FVector size, int type, float time = FLT_MAX)
+FProjectile::FProjectile(FVector position, FVector size, FProjectileType type, float time = FLT_MAX)
 : FObject(position, size, true, true, true)
 {
 	m_type = type;
@@ -12,7 +12,7 @@ void FProjectile::tick(float delta)
 	m_time -= delta;
 }
 
-int FProjectile::getType()
+FProjectileType FProjectile::getType()
 {
 	return m_type;
 }

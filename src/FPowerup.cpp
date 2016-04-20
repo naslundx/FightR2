@@ -1,6 +1,6 @@
 #include "FPowerup.hpp"
 
-FPowerup::FPowerup(FVector position, FVector size, int type, float time = FLT_MAX)
+FPowerup::FPowerup(FVector position, FVector size, FPowerupType type, float time = FLT_MAX)
 : FObject(position, size, true, true, true)
 {
 	m_type = type;
@@ -12,7 +12,7 @@ void FPowerup::tick(float delta)
 	m_time -= delta;
 }
 
-int FPowerup::getType()
+FPowerupType FPowerup::getType()
 {
 	return m_type;
 }
