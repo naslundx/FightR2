@@ -41,6 +41,9 @@ void FCharacter::move(FDirection direction)
 	switch (direction)
 	{
 		case up:
+			//TODO Add ladders
+			jump();
+			break;
 		case down:
 			//TODO Add ladders
 			break;
@@ -56,7 +59,7 @@ void FCharacter::move(FDirection direction)
 
 void FCharacter::jump()
 {
-	if (m_jumpCounter == 0)
+	if (m_jumpCounter == 0 && fabs(m_velocity.y) < 0.1f )
 	{
 		m_jumpCounter = 15;	// jump for 15 frames
 	}
@@ -90,11 +93,14 @@ void FCharacter::updateAI()
 
 void FCharacter::tick(float delta)
 {
-	if (m_jumpCounter-- > 0)
+	if (m_jumpCounter > 0)
 	{
-		FVector jumpVector(0.f, -1.f);
+		--m_jumpCounter;
+		FVector jumpVector(0.f, -0.2f);
 		accelerate(jumpVector);		
 	}
+	
+	std::cout << "jump=" << m_jumpCounter << std::endl;
 	
 	if (m_ai)
 	{

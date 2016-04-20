@@ -14,23 +14,28 @@ Instructions for Windows and OS X will follow later when things are working.
 - [ ] Rendering of powerups
 - [x] Basic character-wall collision detection
 - [x] Move character left-right
-- [ ] Jumping
+- [x] Jumping
 - [x] Gravity
 - [x] Correctly identify human player for movement
 - [x] Call AI on AI characters
-- [ ] Improve object-to-texture mapping
+- [ ] Implement good ID-to-texture mapping
 
 ### Version 0.02
-- [ ] Implement two test weapons and projectiles
 - [ ] Remove all frame-invariant hard-coded values
+- [ ] Implement two test weapons and projectiles
 - [ ] Handle fire of weapon
 - [ ] Handle weapon switching
 - [ ] Projectile-Character collision detection
 - [ ] Projectile-Wall collision detection
 - [ ] Rendering of projectiles
 - [ ] Halt character when reaching left or right edge
+- [ ] Implement ladders
+- [ ] Jump only if standing solidly
 
 ### Version 0.03
+- [ ] Smooth movement and jumping
+- [ ] Better tile system with a FTile type
+- [ ] Load levels from file
 - [ ] Rendering of weapons
 - [ ] Implement test powerups
 - [ ] Game logic (stop when a team has won)
