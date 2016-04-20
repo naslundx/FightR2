@@ -2,6 +2,7 @@
 #define __FCHARACTER_HPP__
 
 #include <vector>
+#include <cmath>
 
 #include "FDirection.hpp"
 #include "FCharacter.hpp"
