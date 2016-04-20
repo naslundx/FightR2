@@ -8,6 +8,7 @@
 #include "FObject.hpp"
 #include "FEngine.hpp"
 #include "FGame.hpp"
+#include "FTypes.hpp"
 
 class FGame
 {
@@ -20,11 +21,15 @@ private:
 	void processEvents();
 	void render();
 
+	// For rendering
+	int m_width, m_height, m_tileSize;
 	std::unique_ptr<sf::RenderWindow> m_window;
 	std::shared_ptr<FEngine> m_engine;
-	int m_width, m_height, m_tileSize;
 	std::unordered_map<std::string, std::shared_ptr<sf::Sprite>> m_sprites;
 	std::unordered_map<std::string, std::shared_ptr<sf::Texture>> m_textures;
+	
+	// Map types to filenames
+	std::map<FCharacterType, std::string> m_characterTypeMap;
 };
 
 #endif

@@ -1,6 +1,6 @@
 #include "FCharacter.hpp"
 
-FCharacter::FCharacter(std::vector<FWeapon> weapons, std::string name, int team, bool ai)
+FCharacter::FCharacter(std::vector<FWeapon> weapons, std::string name, int team, bool ai, FCharacterType type)
 : FObject(true, true, true)
 {
 	m_weapons = weapons;
@@ -8,9 +8,10 @@ FCharacter::FCharacter(std::vector<FWeapon> weapons, std::string name, int team,
 	m_team = team;
 	m_ai = ai;
 	m_jumpCounter = 0;
+	m_type = type;
 }
 
-FCharacter::FCharacter(FVector position, FVector velocity, std::vector<FWeapon> weapons, std::string name, int team, bool ai)
+FCharacter::FCharacter(FVector position, FVector velocity, std::vector<FWeapon> weapons, std::string name, int team, bool ai, FCharacterType type)
 : FObject(position, velocity, true, true, true)
 {
 	m_weapons = weapons;
@@ -18,6 +19,7 @@ FCharacter::FCharacter(FVector position, FVector velocity, std::vector<FWeapon> 
 	m_team = team;
 	m_ai = ai;
 	m_jumpCounter = 0;
+	m_type = type;
 }
 
 int FCharacter::getTeam()
@@ -33,6 +35,11 @@ void FCharacter::setTeam(int team)
 bool FCharacter::isHuman()
 {
 	return !m_ai;
+}
+
+FCharacterType FCharacter::getType()
+{
+	return m_type;
 }
 
 void FCharacter::move(FDirection direction)

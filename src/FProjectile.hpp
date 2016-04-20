@@ -4,17 +4,18 @@
 #include <float.h>
 
 #include "FObject.hpp"
+#include "FTypes.hpp"
 
 class FProjectile : public FObject
 {
 public:
-	FProjectile(FVector, FVector, int, float);
+	FProjectile(FVector, FVector, FProjectileType, float);
 	void tick(float);
-	int getType();
+	FProjectileType getType();
 	bool isAlive();
 	
 private:
-	int m_type;
+	FProjectileType m_type;
 	float m_time;
 };
 
