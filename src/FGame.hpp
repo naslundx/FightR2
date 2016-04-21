@@ -16,6 +16,7 @@ public:
 	FGame(std::shared_ptr<FEngine>);
 	
 	void run();	
+	void loadCharacterType(FCharacterType, std::string);
 private:
 	std::shared_ptr<sf::Sprite> loadSprite(std::string fileName, int width, int height);
 	void processEvents();

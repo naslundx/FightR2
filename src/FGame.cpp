@@ -19,7 +19,13 @@ FGame::FGame(std::shared_ptr<FEngine> engine)
 	
 	// Map types to filenames
 	//TODO This should be done externally through a method in this class
-	m_characterTypeMap[FCharacterType::DEBUG] = "images/business.png";	
+	//m_characterTypeMap[FCharacterType::DEBUG] = "images/business.png";	
+}
+
+void FGame::loadCharacterType(FCharacterType typeName, std::string fileName)
+{
+	//m_characterTypeMap[typeName] = "images/business.png";	
+	m_characterTypeMap[typeName] = fileName;	
 }
 
 std::shared_ptr<sf::Sprite> FGame::loadSprite(std::string fileName, int width, int height)
@@ -133,6 +139,9 @@ void FGame::render()
 		sprite->setPosition(sf::Vector2f(character.getPosition().x, character.getPosition().y));
 		m_window->draw(*sprite);
 	}
+
+	// Render powerups
+	//TODO
 	
 	// Render weapons
 	//TODO

@@ -32,6 +32,8 @@ int main(int argc, char** argv)
 	
 	// Create the game and run the main loop
 	FGame game(engine);
+	game.loadCharacterType(FCharacterType::DEBUG,
+	"images/business.png"); // or all the available filenames should be saved as in string (without loading images) and just use FCharacterType?
 	game.run();
 
 	return 0;

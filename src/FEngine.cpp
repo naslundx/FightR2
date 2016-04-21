@@ -148,3 +148,13 @@ std::vector<FCharacter>& FEngine::getCharacters()
 {
 	return m_characters;
 }
+
+//std::vector<FProjectile>& FEngine::getProjectiles()
+//{
+//	return m_projectiles;
+//}
+//
+//std::vector<FPowerup>& FEngine::getPowerups()
+//{
+//	return m_powerups;
+//}
