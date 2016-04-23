@@ -15,7 +15,12 @@ class FGame
 public:
 	FGame(std::shared_ptr<FEngine>);
 	
-	void run();	
+	void run();
+	void setCharacterType(FCharacterType, std::string);
+	void setWeaponType(FWeaponType, std::string);
+	void setProjectileType(FProjectileType, std::string);
+	void setPowerupType(FPowerupType, std::string);
+
 private:
 	std::shared_ptr<sf::Sprite> loadSprite(std::string fileName, int width, int height);
 	void processEvents();
@@ -30,6 +35,9 @@ private:
 	
 	// Map types to filenames
 	std::map<FCharacterType, std::string> m_characterTypeMap;
+	std::map<FWeaponType, std::string> m_weaponTypeMap;
+	std::map<FPowerupType, std::string> m_powerupTypeMap;
+	std::map<FProjectileType, std::string> m_projectileTypeMap;
 };
 
 #endif

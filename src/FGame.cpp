@@ -16,10 +16,6 @@ FGame::FGame(std::shared_ptr<FEngine> engine)
 		"FightR 2.0"
 	);
 	m_window = std::unique_ptr<sf::RenderWindow>(window);
-	
-	// Map types to filenames
-	//TODO This should be done externally through a method in this class
-	m_characterTypeMap[FCharacterType::DEBUG] = "images/business.png";	
 }
 
 std::shared_ptr<sf::Sprite> FGame::loadSprite(std::string fileName, int width, int height)
@@ -132,16 +128,49 @@ void FGame::render()
 		auto sprite = loadSprite(m_characterTypeMap[character.getType()], character.getSize().x, character.getSize().y);
 		sprite->setPosition(sf::Vector2f(character.getPosition().x, character.getPosition().y));
 		m_window->draw(*sprite);
+		
+		// Render current weapon
+		//TODO
 	}
 	
-	// Render weapons
-	//TODO
-	
 	// Render projectiles
-	//TODO
+	for (auto &projectile : m_engine->getProjectiles())
+	{
+		auto sprite = loadSprite(m_projectileTypeMap[projectile.getType()], projectile.getSize().x, projectile.getSize().y);
+		sprite->setPosition(sf::Vector2f(projectile.getPosition().x, projectile.getPosition().y));
+		m_window->draw(*sprite);
+	}
+	
+	// Render powerups
+	for (auto &powerup : m_engine->getPowerups())
+	{
+		auto sprite = loadSprite(m_powerupTypeMap[powerup.getType()], powerup.getSize().x, powerup.getSize().y);
+		sprite->setPosition(sf::Vector2f(powerup.getPosition().x, powerup.getPosition().y));
+		m_window->draw(*sprite);
+	}
 	
 	// Render effects
 	//TODO
 
 	m_window->display();
+}
+
+void FGame::setCharacterType(FCharacterType typeName, std::string filename)
+{
+	m_characterTypeMap[typeName] = filename;	
+}
+
+void FGame::setWeaponType(FWeaponType typeName, std::string filename)
+{
+	m_weaponTypeMap[typeName] = filename;	
+}
+
+void FGame::setProjectileType(FProjectileType typeName, std::string filename)
+{
+	m_projectileTypeMap[typeName] = filename;	
+}
+
+void FGame::setPowerupType(FPowerupType typeName, std::string filename)
+{
+	m_powerupTypeMap[typeName] = filename;	
 }
