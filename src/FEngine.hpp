@@ -20,6 +20,8 @@ public:
 	void addPlayer(FCharacter);
 	std::shared_ptr<FLevel> getLevel();
 	std::vector<FCharacter>& getCharacters();
+	std::vector<FProjectile>& getProjectiles();
+	std::vector<FPowerup>& getPowerups();
 		
 	void tick(float);
 	bool isRunning();

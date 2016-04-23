@@ -24,14 +24,15 @@ int main(int argc, char** argv)
 	// Create characters
 	//TODO Add weapons
 	std::string nameone = "Marcus";
-	//std::string nametwo = "Lalala";
+	std::string nametwo = "Computer";
 	FCharacter one(FVector(250.f, 150.f), FVector(20.f, 40.f), std::vector<FWeapon>(), nameone, 1, false, FCharacterType::DEBUG);
-	//FCharacter two(std::vector<FWeapon>(), nametwo, 2, true);
+	FCharacter two(FVector(450.f, 350.f), FVector(20.f, 40.f), std::vector<FWeapon>(), nameone, 2, true, FCharacterType::DEBUG);
 	engine->addPlayer(one);
-	//engine->addPlayer(two);
+	engine->addPlayer(two);
 	
 	// Create the game and run the main loop
 	FGame game(engine);
+	game.setCharacterType(FCharacterType::DEBUG, "images/business.png");
 	game.run();
 
 	return 0;
