@@ -8,20 +8,7 @@ Instructions for Windows and OS X will follow later when things are working.
 
 ## Roadmap
 
-### Version 0.01
-- [x] Rendering of tiles
-- [x] Rendering of characters
-- [ ] Rendering of powerups
-- [x] Basic character-wall collision detection
-- [x] Move character left-right
-- [x] Jumping
-- [x] Gravity
-- [x] Correctly identify human player for movement
-- [x] Call AI on AI characters
-- [ ] Implement good ID-to-texture mapping
-
-### Version 0.02
-- [ ] Remove all frame-invariant hard-coded values
+### Version 0.1 (ALPHA)
 - [ ] Implement two test weapons and projectiles
 - [ ] Handle fire of weapon
 - [ ] Handle weapon switching
@@ -32,7 +19,8 @@ Instructions for Windows and OS X will follow later when things are working.
 - [ ] Implement ladders
 - [ ] Jump only if standing solidly
 
-### Version 0.03
+### Version 0.2 (FIRST BETA)
+- [ ] Remove all frame-invariant hard-coded values
 - [ ] Smooth movement and jumping
 - [ ] Better tile system with a FTile type
 - [ ] Load levels from file
@@ -45,14 +33,12 @@ Instructions for Windows and OS X will follow later when things are working.
 - [ ] Render basic graphic effects
 - [ ] Better level randomization
 
-### Version 0.1 (BETA)
+### Version 0.3 (SECOND BETA)
 - [ ] General bug fixes, clean memory leaks
 - [ ] Improved AI
 - [ ] Basic UI for starting, restarting, ending a game
 - [ ] Improved in-game UI (better player stats rendering)
 - [ ] Document running on Windows and OS X
-
-### Version 0.2 (BETA 2)
 - [ ] Write good levels
 - [ ] More weapons and projectiles
 - [ ] More powerups
