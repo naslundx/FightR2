@@ -2,6 +2,7 @@
 #define __FLEVEL_HPP__
 
 #include <memory>
+#include "FTile.hpp"
 
 class FLevel
 {
@@ -13,8 +14,8 @@ public:
 	void clear();
 	void randomize();
 	void loadFromFile(std::string);
-	char get(int, int);
-	void set(int, int, char);	
+	FTile get(int, int);
+	void set(int, int, FTile);	
 	
 	int getWidth();
 	int getHeight();
@@ -22,7 +23,7 @@ public:
 	
 private:
 	int m_width, m_height, m_tileSize;
-	char* m_data;
+	FTile* m_data;
 };
 
 #endif

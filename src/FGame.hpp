@@ -16,6 +16,7 @@ public:
 	FGame(std::shared_ptr<FEngine>);
 	
 	void run();
+	void setTile(FTile, std::string);
 	void setCharacterType(FCharacterType, std::string);
 	void setWeaponType(FWeaponType, std::string);
 	void setProjectileType(FProjectileType, std::string);
@@ -34,6 +35,7 @@ private:
 	std::unordered_map<std::string, std::shared_ptr<sf::Texture>> m_textures;
 	
 	// Map types to filenames
+	std::map<FTile, std::string> m_tileMap;
 	std::map<FCharacterType, std::string> m_characterTypeMap;
 	std::map<FWeaponType, std::string> m_weaponTypeMap;
 	std::map<FPowerupType, std::string> m_powerupTypeMap;

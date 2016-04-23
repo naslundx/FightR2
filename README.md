@@ -22,7 +22,6 @@ Instructions for Windows and OS X will follow later when things are working.
 ### Version 0.2 (FIRST BETA)
 - [ ] Remove all frame-invariant hard-coded values
 - [ ] Smooth movement and jumping
-- [ ] Better tile system with a FTile type
 - [ ] Load levels from file
 - [ ] Rendering of weapons
 - [ ] Implement test powerups
