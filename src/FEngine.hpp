@@ -37,7 +37,6 @@ public:
 private:
 	void clean();
 	void collisionDetection();
-	bool tileIsSolid(char tile);
 
 	std::vector<FCharacter> m_characters;
 	std::vector<FProjectile> m_projectiles;

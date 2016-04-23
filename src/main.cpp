@@ -10,6 +10,7 @@
 #include "FVector.hpp"
 #include "FObject.hpp"
 #include "FTypes.hpp"
+#include "FTile.hpp"
 
 int main(int argc, char** argv)
 {
@@ -33,6 +34,8 @@ int main(int argc, char** argv)
 	// Create the game and run the main loop
 	FGame game(engine);
 	game.setCharacterType(FCharacterType::DEBUG, "images/business.png");
+	game.setTile(FTile::DEBUG_BLANK, "images/Sandstone.png");
+	game.setTile(FTile::DEBUG_SOLID, "images/Metalplates.png");
 	game.run();
 
 	return 0;

@@ -82,6 +82,7 @@ void FEngine::collisionDetection()
 	auto tileSize = m_level->getTileSize();
 	
 	// Character&Wall
+	// TODO Move to generic function for FObject objects
 	for (auto &character : m_characters)
 	{
 		auto position = character.getPosition(), size = character.getSize();
@@ -92,14 +93,12 @@ void FEngine::collisionDetection()
 		{
 			if (tileIsSolid(m_level->get(x / tileSize, position.y / tileSize)))
 			{
-				// std::cout << "top";
 				position.y += (tileSize - fmod(position.y, tileSize));
 				character.land();
 				break;
 			}
 			if (tileIsSolid(m_level->get(x / tileSize, (position.y + size.y) / tileSize)))
 			{
-				// std::cout << "bottom";
 				position.y -= fmod(position.y, tileSize) - 0.1f;
 				character.land();
 				break;
@@ -110,14 +109,12 @@ void FEngine::collisionDetection()
 		{
 			if (tileIsSolid(m_level->get(position.x / tileSize, y / tileSize)))
 			{
-				// std::cout << "left";
 				position.x += (tileSize - fmod(position.x, tileSize));
 				character.halt();
 				break;
 			}
 			if (tileIsSolid(m_level->get((position.x + size.x) / tileSize, y / tileSize)))
 			{
-				// std::cout << "right";
 				position.x -= fmod(position.x, tileSize);
 				character.halt();
 				break;
@@ -137,11 +134,6 @@ void FEngine::collisionDetection()
 	
 	// Powerup&Wall
 	//TODO
-}
-
-bool FEngine::tileIsSolid(char tile)
-{
-	return tile == 'a';	
 }
 
 std::vector<FCharacter>& FEngine::getCharacters()

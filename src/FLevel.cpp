@@ -12,7 +12,7 @@ FLevel::FLevel(int width, int height, int tilesize)
 	m_width = width;
 	m_height = height;
 	m_tileSize = tilesize;
-	m_data = new char[m_width * m_height];
+	m_data = new FTile[m_width * m_height];
 }
 
 FLevel::~FLevel()
@@ -24,7 +24,7 @@ void FLevel::clear()
 {
 	for (int y = 0; y < m_height; ++y)
 		for (int x = 0; x < m_width; ++x)
-			set(x, y, '\0');
+			set(x, y, FTile::DEBUG_BLANK);
 }
 
 void FLevel::randomize()
@@ -32,7 +32,7 @@ void FLevel::randomize()
 	clear();
 	//TODO
 	for (int x = m_width / 2 - 10; x < m_width / 2 + 10; ++x)
-		set(x, m_height / 2, 'a');
+		set(x, m_height / 2, FTile::DEBUG_SOLID);
 }
 
 void FLevel::loadFromFile(std::string path)
@@ -40,12 +40,12 @@ void FLevel::loadFromFile(std::string path)
 	//TODO	
 }
 
-char FLevel::get(int x, int y)
+FTile FLevel::get(int x, int y)
 {
 	return m_data[y * m_width + x];
 }
 
-void FLevel::set(int x, int y, char data)
+void FLevel::set(int x, int y, FTile data)
 {
 	m_data[y * m_width + x] = data;
 }

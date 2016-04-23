@@ -106,21 +106,15 @@ void FGame::render()
 		
 	// Render all tiles
 	for (int y = 0; y < m_height; y++)
-		for (int x = 0; x < m_width; x++) {
-			std::shared_ptr<sf::Sprite> sprite;
-			char data = m_engine->getLevel()->get(x, y);
-			switch (data)
-			{
-				case 'a':
-					sprite = loadSprite("images/Metalplates.png", 10, 10);
-					break;
-				default:
-					sprite = loadSprite("images/Sandstone.png", 10, 10);
-			}
-			sf::Vector2f position(x * m_tileSize, y * m_tileSize);
-			sprite->setPosition(position);
+	{
+		for (int x = 0; x < m_width; x++)
+		{
+			auto data = m_engine->getLevel()->get(x, y);
+			auto sprite = loadSprite(m_tileMap[data], m_tileSize, m_tileSize);
+			sprite->setPosition(sf::Vector2f(x * m_tileSize, y * m_tileSize));
 			m_window->draw(*sprite);
 		}
+	}
 			
 	// Render characters
 	for (auto &character : m_engine->getCharacters())
@@ -153,6 +147,11 @@ void FGame::render()
 	//TODO
 
 	m_window->display();
+}
+
+void FGame::setTile(FTile typeName, std::string filename)
+{
+	m_tileMap[typeName] = filename;
 }
 
 void FGame::setCharacterType(FCharacterType typeName, std::string filename)
