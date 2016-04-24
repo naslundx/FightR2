@@ -77,26 +77,18 @@ void FGame::processEvents()
 	auto it = std::find_if(characters.begin(), characters.end(), [] (FCharacter& character) { return character.isHuman(); } );
 	if (it != characters.end())
 	{
+		FDirection direction;
+		
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-		{
-			std::cout << "moving left";
-			it->move(FDirection::left);
-		}
+			direction = FDirection::left;
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-		{
-			std::cout << "moving right";
-			it->move(FDirection::right);
-		}
+			direction = FDirection::right;
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-		{
-			std::cout << "moving up";
-			it->move(FDirection::up);
-		}
+			direction = FDirection::up;
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-		{
-			std::cout << "moving down";
-			it->move(FDirection::down);
-		}
+			direction = FDirection::down;
+			
+		it->move(direction);
 	}
 }
 

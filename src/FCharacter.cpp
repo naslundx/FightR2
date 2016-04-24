@@ -22,6 +22,12 @@ FCharacter::FCharacter(FVector position, FVector velocity, std::vector<FWeapon> 
 	m_type = type;
 }
 
+bool FCharacter::isAlive()
+{
+	//TODO
+	return true;
+}
+
 int FCharacter::getTeam()
 {
 	return m_team;
@@ -106,15 +112,11 @@ void FCharacter::tick(float delta)
 		FVector jumpVector(0.f, -0.2f);
 		accelerate(jumpVector);		
 	}
-	
-	std::cout << "jump=" << m_jumpCounter << std::endl;
-	
+
 	if (m_ai)
 	{
 		updateAI();
 	}
 	
 	FObject::tick(delta);
-	
-	std::cout << "\nPos=" << this->m_position << "\nVel=" << this->m_velocity << "\n";
 }

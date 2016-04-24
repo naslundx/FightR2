@@ -38,8 +38,15 @@ void FEngine::tick(float delta)
 
 bool FEngine::isRunning()
 {
-	//TODO
-	return true;
+	std::vector<int> teams;
+	for (auto character : m_characters)
+		if (character.isAlive())
+			teams.push_back(character.getTeam());
+	for (int i=0; i<teams.size()-1; i++)
+		for (int j=1; j<teams.size(); j++)
+			if (teams[i] != teams[j])
+				return true;
+	return false;
 }
 
 void FEngine::print()
@@ -82,58 +89,122 @@ void FEngine::collisionDetection()
 	auto tileSize = m_level->getTileSize();
 	
 	// Character&Wall
-	// TODO Move to generic function for FObject objects
 	for (auto &character : m_characters)
 	{
 		auto position = character.getPosition(), size = character.getSize();
 		if (position.clampTo(0.f, 0.f, m_level->getWidth() * tileSize - size.x, m_level->getHeight() * tileSize - size.y))
 		 	character.land();
-		
-		for (float x = position.x; x <= position.x + size.x; x += tileSize)
-		{
-			if (tileIsSolid(m_level->get(x / tileSize, position.y / tileSize)))
-			{
-				position.y += (tileSize - fmod(position.y, tileSize));
-				character.land();
-				break;
-			}
-			if (tileIsSolid(m_level->get(x / tileSize, (position.y + size.y) / tileSize)))
-			{
-				position.y -= fmod(position.y, tileSize) - 0.1f;
-				character.land();
-				break;
-			}
-		}
-		
-		for (float y = position.y; y < position.y + size.y; y += tileSize)
-		{
-			if (tileIsSolid(m_level->get(position.x / tileSize, y / tileSize)))
-			{
-				position.x += (tileSize - fmod(position.x, tileSize));
-				character.halt();
-				break;
-			}
-			if (tileIsSolid(m_level->get((position.x + size.x) / tileSize, y / tileSize)))
-			{
-				position.x -= fmod(position.x, tileSize);
-				character.halt();
-				break;
-			}
-		}
+
 		character.setPosition(position);
+		
+		if (collisionLeft(character) || collisionRight(character))
+			character.halt();
+			
+		if (collisionUp(character) || collisionDown(character))
+			character.land();
 	}
 	
 	// Projectile&Character
 	//TODO
 	
 	// Projectile&Wall
-	//TODO
+	for (auto &projectile : m_projectiles)
+	{
+		auto position = projectile.getPosition(), size = projectile.getSize();
+		if (position.clampTo(0.f, 0.f, m_level->getWidth() * tileSize - size.x, m_level->getHeight() * tileSize - size.y))
+		 	projectile.land();
+
+		projectile.setPosition(position);
+		
+		if (collisionLeft(projectile) || collisionRight(projectile))
+			projectile.halt();
+			
+		if (collisionUp(projectile) || collisionDown(projectile))
+			projectile.land();
+	}
 	
 	// Powerup&Character
 	//TODO
 	
 	// Powerup&Wall
-	//TODO
+	for (auto &powerup : m_powerups)
+	{
+		auto position = powerup.getPosition(), size = powerup.getSize();
+		if (position.clampTo(0.f, 0.f, m_level->getWidth() * tileSize - size.x, m_level->getHeight() * tileSize - size.y))
+		 	powerup.land();
+
+		powerup.setPosition(position);
+		
+		if (collisionLeft(powerup) || collisionRight(powerup))
+			powerup.halt();
+			
+		if (collisionUp(powerup) || collisionDown(powerup))
+			powerup.land();
+	}
+}
+
+bool FEngine::collisionUp(FObject& object)
+{
+	auto tileSize = m_level->getTileSize();
+	auto position = object.getPosition(), size = object.getSize(); 
+	for (float x = position.x; x <= position.x + size.x; x += tileSize)
+	{
+		if (tileIsSolid(m_level->get(x / tileSize, position.y / tileSize)))
+		{
+			position.y += (tileSize - fmod(position.y, tileSize));
+			object.setPosition(position);
+			return true;
+		}
+	}
+	return false;
+}
+
+bool FEngine::collisionDown(FObject& object)
+{
+	auto tileSize = m_level->getTileSize();
+	auto position = object.getPosition(), size = object.getSize(); 
+	for (float x = position.x; x <= position.x + size.x; x += tileSize)
+	{
+		if (tileIsSolid(m_level->get(x / tileSize, (position.y + size.y) / tileSize)))
+		{
+			position.y -= fmod(position.y, tileSize) - 0.1f;
+			object.setPosition(position);
+			return true;
+		}
+	}
+	return false;
+}
+
+bool FEngine::collisionLeft(FObject& object)
+{
+	auto tileSize = m_level->getTileSize();
+	auto position = object.getPosition(), size = object.getSize();
+	for (float y = position.y; y < position.y + size.y; y += tileSize)
+	{
+		if (tileIsSolid(m_level->get(position.x / tileSize, y / tileSize)))
+		{
+			position.x += (tileSize - fmod(position.x, tileSize));
+			object.setPosition(position);
+			return true;
+		}
+	}
+	return false;
+}
+
+bool FEngine::collisionRight(FObject& object)
+{
+	auto tileSize = m_level->getTileSize();
+	auto position = object.getPosition(), size = object.getSize();
+	for (float y = position.y; y < position.y + size.y; y += tileSize)
+	{
+		if (tileIsSolid(m_level->get((position.x + size.x) / tileSize, y / tileSize)))
+		{
+			position.x -= fmod(position.x, tileSize);
+			object.setPosition(position);
+			return true;
+		}
+	}
+	return false;
 }
 
 std::vector<FCharacter>& FEngine::getCharacters()
