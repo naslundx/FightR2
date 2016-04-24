@@ -37,6 +37,10 @@ public:
 private:
 	void clean();
 	void collisionDetection();
+	bool collisionLeft(FObject&);
+	bool collisionRight(FObject&);
+	bool collisionUp(FObject&);
+	bool collisionDown(FObject&);
 
 	std::vector<FCharacter> m_characters;
 	std::vector<FProjectile> m_projectiles;

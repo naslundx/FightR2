@@ -21,6 +21,7 @@ public:
 	bool isHuman();
 	void move(FDirection);
 	void jump();
+	bool isAlive();
 	
 	FWeapon& getWeapon();
 	int getWeaponIndex();
