@@ -1,13 +1,13 @@
 #include "FWeapon.hpp"
 
-FWeapon::FWeapon(int ammo, int maxAmmo, int cost, int load, int projectileID, FWeaponType type)
+FWeapon::FWeapon(int ammo, int maxAmmo, int cost, int load, FProjectileType projectileType, FWeaponType type)
 : FObject(false, false, false)
 {
 	m_ammo = ammo;
 	m_maxAmmo = maxAmmo;
 	m_cost = cost;
 	m_load = load;
-	m_projectileID = projectileID;
+	m_projectileType = projectileType;
 	m_type = type;
 }
 	
@@ -41,4 +41,9 @@ void FWeapon::reload()
 FWeaponType FWeapon::getType()
 {
 	return m_type;
+}
+
+FProjectileType FWeapon::getProjectileType()
+{
+	return m_projectileType;
 }

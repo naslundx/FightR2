@@ -128,7 +128,7 @@ void FObject::tick(float delta)
 		m_velocity = FVector();
 	if (isGravitational())
 	{
-		FVector down(0.f, 1.0f * delta);
+		FVector down(0.f, 1.5f * delta);
 		accelerate(down);
 	}
 	

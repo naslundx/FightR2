@@ -77,18 +77,15 @@ void FGame::processEvents()
 	auto it = std::find_if(characters.begin(), characters.end(), [] (FCharacter& character) { return character.isHuman(); } );
 	if (it != characters.end())
 	{
-		FDirection direction;
-		
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-			direction = FDirection::left;
+			it->move(FDirection::left);
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-			direction = FDirection::right;
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-			direction = FDirection::up;
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-			direction = FDirection::down;
+			it->move(FDirection::right);
 			
-		it->move(direction);
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+			it->move(FDirection::up);
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+			it->move(FDirection::down);
 	}
 }
 
@@ -108,15 +105,20 @@ void FGame::render()
 		}
 	}
 			
-	// Render characters
+	// Render characters and their weapons
 	for (auto &character : m_engine->getCharacters())
 	{
-		auto sprite = loadSprite(m_characterTypeMap[character.getType()], character.getSize().x, character.getSize().y);
-		sprite->setPosition(sf::Vector2f(character.getPosition().x, character.getPosition().y));
-		m_window->draw(*sprite);
-		
-		// Render current weapon
-		//TODO
+		if (character.getHealth() > 0)
+		{
+			auto sprite = loadSprite(m_characterTypeMap[character.getType()], character.getSize().x, character.getSize().y);
+			sprite->setPosition(sf::Vector2f(character.getPosition().x, character.getPosition().y));
+			m_window->draw(*sprite);
+			
+			// auto weapon = character.getWeapon();
+			// auto weaponSprite = loadSprite(m_weaponTypeMap[weapon.getType()], weapon.getSize().x, weapon.getSize().y);
+			// weaponSprite->setPosition(sf::Vector2f(character.getPosition().x + character.getSize().x / 2.f, character.getPosition().y + character.getSize().y / 2.f));
+			// m_window->draw(*weaponSprite);
+		}
 	}
 	
 	// Render projectiles

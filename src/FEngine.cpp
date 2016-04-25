@@ -40,11 +40,11 @@ bool FEngine::isRunning()
 {
 	std::vector<int> teams;
 	for (auto character : m_characters)
-		if (character.isAlive())
+		if (character.getLives() > 0)
 			teams.push_back(character.getTeam());
-	for (int i=0; i<teams.size()-1; i++)
-		for (int j=1; j<teams.size(); j++)
-			if (teams[i] != teams[j])
+	for (auto first = teams.begin(); first != teams.end() - 1; ++first)
+		for (auto second = first + 1; second != teams.end(); ++second)
+			if (*first != *second)
 				return true;
 	return false;
 }
