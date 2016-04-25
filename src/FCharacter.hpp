@@ -13,20 +13,26 @@
 class FCharacter: public FObject
 {
 public:
-	FCharacter(std::vector<FWeapon>, std::string, int, bool, FCharacterType);
-	FCharacter(FVector, FVector, std::vector<FWeapon>, std::string, int, bool, FCharacterType);
+	FCharacter(std::vector<FWeapon>, std::string, int, bool, FCharacterType, int, int);
+	FCharacter(FVector, FVector, std::vector<FWeapon>, std::string, int, bool, FCharacterType, int, int);
 	
 	int getTeam();
 	void setTeam(int);
 	bool isHuman();
 	void move(FDirection);
 	void jump();
-	bool isAlive();
 	
 	FWeapon& getWeapon();
 	int getWeaponIndex();
 	void fire(FDirection);
 	void setWeaponIndex(int);
+	
+	int getLives();
+	void setLives(int);
+	int getHealth();
+	void heal(int);
+	void hurt(int);
+	void resurrect();
 	
 	FCharacterType getType();
 	void updateAI();
@@ -34,7 +40,7 @@ public:
 	
 private:
 	bool m_ai;
-	int m_currentWeapon, m_team, m_jumpCounter;
+	int m_currentWeapon, m_team, m_jumpCounter, m_health, m_maxHealth, m_lives;
 	std::vector<FWeapon> m_weapons;
 	std::string m_name;
 	FCharacterType m_type;

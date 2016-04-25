@@ -1,6 +1,6 @@
 #include "FCharacter.hpp"
 
-FCharacter::FCharacter(std::vector<FWeapon> weapons, std::string name, int team, bool ai, FCharacterType type)
+FCharacter::FCharacter(std::vector<FWeapon> weapons, std::string name, int team, bool ai, FCharacterType type, int health, int lives)
 : FObject(true, true, true)
 {
 	m_weapons = weapons;
@@ -9,9 +9,11 @@ FCharacter::FCharacter(std::vector<FWeapon> weapons, std::string name, int team,
 	m_ai = ai;
 	m_jumpCounter = 0;
 	m_type = type;
+	m_health = health;
+	m_lives = lives;
 }
 
-FCharacter::FCharacter(FVector position, FVector velocity, std::vector<FWeapon> weapons, std::string name, int team, bool ai, FCharacterType type)
+FCharacter::FCharacter(FVector position, FVector velocity, std::vector<FWeapon> weapons, std::string name, int team, bool ai, FCharacterType type, int health, int lives)
 : FObject(position, velocity, true, true, true)
 {
 	m_weapons = weapons;
@@ -20,12 +22,48 @@ FCharacter::FCharacter(FVector position, FVector velocity, std::vector<FWeapon> 
 	m_ai = ai;
 	m_jumpCounter = 0;
 	m_type = type;
+	m_health = health;
+	m_lives = lives;
 }
 
-bool FCharacter::isAlive()
+int FCharacter::getLives()
 {
-	//TODO
-	return true;
+	return m_lives;
+}
+
+void FCharacter::setLives(int lives)
+{
+	m_lives = lives;
+}
+
+int FCharacter::getHealth()
+{
+	return m_health;
+}
+
+void FCharacter::heal(int health)
+{
+	m_health += health;
+	if (m_health > m_maxHealth)
+		m_health = m_maxHealth;
+}
+
+void FCharacter::hurt(int health)
+{
+	m_health -= health;
+	if (m_health < 0)
+	{
+		m_health = 0;
+		--m_lives;
+	}
+}
+
+void FCharacter::resurrect()
+{
+	if (m_lives > 0)
+	{
+		m_health = m_maxHealth;
+	}
 }
 
 int FCharacter::getTeam()
