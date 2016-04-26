@@ -11,6 +11,7 @@ FCharacter::FCharacter(std::vector<FWeapon> weapons, std::string name, int team,
 	m_type = type;
 	m_health = health;
 	m_lives = lives;
+	m_currentWeapon = 0;
 }
 
 FCharacter::FCharacter(FVector position, FVector velocity, std::vector<FWeapon> weapons, std::string name, int team, bool ai, FCharacterType type, int health, int lives)
@@ -24,6 +25,7 @@ FCharacter::FCharacter(FVector position, FVector velocity, std::vector<FWeapon> 
 	m_type = type;
 	m_health = health;
 	m_lives = lives;
+	m_currentWeapon = 0;
 }
 
 int FCharacter::getLives()

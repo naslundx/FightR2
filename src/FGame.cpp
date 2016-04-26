@@ -114,10 +114,10 @@ void FGame::render()
 			sprite->setPosition(sf::Vector2f(character.getPosition().x, character.getPosition().y));
 			m_window->draw(*sprite);
 			
-			// auto weapon = character.getWeapon();
-			// auto weaponSprite = loadSprite(m_weaponTypeMap[weapon.getType()], weapon.getSize().x, weapon.getSize().y);
-			// weaponSprite->setPosition(sf::Vector2f(character.getPosition().x + character.getSize().x / 2.f, character.getPosition().y + character.getSize().y / 2.f));
-			// m_window->draw(*weaponSprite);
+			auto weapon = character.getWeapon();
+			auto weaponSprite = loadSprite(m_weaponTypeMap[weapon.getType()], weapon.getSize().x, weapon.getSize().y);
+			weaponSprite->setPosition(sf::Vector2f(character.getPosition().x + character.getSize().x / 2.f, character.getPosition().y + character.getSize().y / 2.f));
+			m_window->draw(*weaponSprite);
 		}
 	}
 	
