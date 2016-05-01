@@ -10,14 +10,16 @@ class FWeapon: public FObject
 public:
 	FWeapon(int, int, int, int, FProjectileType, FWeaponType);
 	
+	bool hasFired();
 	bool canFire();
-	void fire(FDirection);
+	void fire();
 	void tick(float);
 	void reload();
 	FWeaponType getType();
 	FProjectileType getProjectileType();
 	
 private:
+	bool m_fired;
 	int m_ammo, m_maxAmmo, m_cost, m_load;
 	FProjectileType m_projectileType;
 	FWeaponType m_type;

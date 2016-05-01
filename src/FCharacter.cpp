@@ -1,7 +1,7 @@
 #include "FCharacter.hpp"
 
 FCharacter::FCharacter(std::vector<FWeapon> weapons, std::string name, int team, bool ai, FCharacterType type, int health, int lives)
-: FObject(true, true, true)
+: FObject(true, true, true, true)
 {
 	m_weapons = weapons;
 	m_name = name;
@@ -12,10 +12,11 @@ FCharacter::FCharacter(std::vector<FWeapon> weapons, std::string name, int team,
 	m_health = health;
 	m_lives = lives;
 	m_currentWeapon = 0;
+	m_facingLeft = false;
 }
 
 FCharacter::FCharacter(FVector position, FVector velocity, std::vector<FWeapon> weapons, std::string name, int team, bool ai, FCharacterType type, int health, int lives)
-: FObject(position, velocity, true, true, true)
+: FObject(position, velocity, true, true, true, true)
 {
 	m_weapons = weapons;
 	m_name = name;
@@ -26,6 +27,7 @@ FCharacter::FCharacter(FVector position, FVector velocity, std::vector<FWeapon> 
 	m_health = health;
 	m_lives = lives;
 	m_currentWeapon = 0;
+	m_facingLeft = false;
 }
 
 int FCharacter::getLives()
@@ -101,9 +103,11 @@ void FCharacter::move(FDirection direction)
 			//TODO Add ladders
 			break;
 		case left:
+			m_facingLeft = true;
 			acceleration = FVector(-0.09f, 0.f);
 			break;
 		case right:
+			m_facingLeft = false;
 			acceleration = FVector(0.09f, 0.f);
 			break;
 	}
@@ -128,9 +132,14 @@ int FCharacter::getWeaponIndex()
 	return m_currentWeapon;
 }
 
-void FCharacter::fire(FDirection direction)
+bool FCharacter::facingLeft()
 {
-	m_weapons[m_currentWeapon].fire(direction);
+	return m_facingLeft;
+}
+
+void FCharacter::fire()
+{
+	m_weapons[m_currentWeapon].fire(/*m_facingLeft ? FDirection::left : FDirection::right*/);
 }
 
 void FCharacter::setWeaponIndex(int index)

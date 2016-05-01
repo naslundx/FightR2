@@ -54,6 +54,7 @@ int main(int argc, char** argv)
 	FGame game(engine);
 	game.setCharacterType(FCharacterType::DEBUG, "images/business.png");
 	game.setWeaponType(FWeaponType::DEBUG, "images/Sandstone.png");
+	game.setProjectileType(FProjectileType::DEBUG, "images/bug.png");
 	game.setTile(FTile::DEBUG_BLANK, "images/Sandstone.png");
 	game.setTile(FTile::DEBUG_SOLID, "images/Metalplates.png");
 	game.run();

@@ -86,6 +86,9 @@ void FGame::processEvents()
 			it->move(FDirection::up);
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 			it->move(FDirection::down);
+			
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+			it->fire();
 	}
 }
 

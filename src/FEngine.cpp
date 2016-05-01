@@ -21,6 +21,24 @@ void FEngine::tick(float delta)
 	for (auto &character : m_characters)
 	{
 		character.tick(delta);
+		auto &weapon = character.getWeapon();
+		if (weapon.hasFired())
+		{
+			FVector position, velocity;
+			if (character.facingLeft())
+			{
+				position = FVector(character.getSize().x * 1.5f, character.getSize().y / 2.f) + character.getPosition();
+				velocity = FVector(character.getVelocity().x - 1.f, 0.f);
+			}
+			else
+			{
+				position = FVector(character.getSize().x * -0.5f, character.getSize().y / 2.f) + character.getPosition();
+				velocity = FVector(character.getVelocity().x + 1.f, 0.f) + character.getVelocity();
+			}
+			auto projectile = FProjectile(position, FVector(10, 10), weapon.getProjectileType(), 1000.f, false, false);
+			projectile.setVelocity(velocity);
+			createProjectile(projectile);
+		}
 	}
 	for (auto &projectile : m_projectiles)
 	{
@@ -64,9 +82,9 @@ float FEngine::getTime()
 	return m_time;
 }
 
-void FEngine::createProjectile()
+void FEngine::createProjectile(FProjectile projectile)
 {
-	//TODO
+	m_projectiles.push_back(projectile);
 }
 
 void FEngine::createPowerup()

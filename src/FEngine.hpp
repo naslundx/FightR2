@@ -30,7 +30,7 @@ public:
 	int getTickCount();
 	float getTime();
 	
-	void createProjectile();
+	void createProjectile(FProjectile);
 	void createPowerup();
 	void createEffect();
 	
