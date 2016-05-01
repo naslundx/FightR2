@@ -8,8 +8,8 @@ class FObject
 {
 public:
 	FObject();
-	FObject(bool, bool, bool);
-	FObject(FVector, FVector, bool, bool, bool);
+	FObject(bool, bool, bool, bool);
+	FObject(FVector, FVector, bool, bool, bool, bool);
 	~FObject();
 	
 	FVector& getPosition();
@@ -19,6 +19,7 @@ public:
 	bool isVisible();
 	bool isSolid();
 	bool isStill();
+	bool hasDrag();
 	int getID();
 	
 	void setPosition(const FVector);
@@ -27,6 +28,7 @@ public:
 	void accelerate(const FVector&);
 	void setGravitational(bool);
 	void setVisible(bool);
+	void setDrag(bool);
 	void freeze();
 	void land();
 	void halt();
@@ -36,7 +38,7 @@ public:
 protected:
 	FVector m_position, m_size, m_velocity;
 	int m_id;
-	bool m_gravity, m_visible, m_solid;
+	bool m_gravity, m_visible, m_solid, m_drags;
 	FDirection m_direction;
 	
 	static int IDcounter;

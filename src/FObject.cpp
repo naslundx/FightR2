@@ -7,26 +7,29 @@ FObject::FObject()
 	m_gravity = false;
 	m_visible = false;
 	m_solid = false;
+	m_drags = false;
 	m_id = FObject::createID();
 	freeze();
 }
 
-FObject::FObject(bool gravity, bool visible, bool solid)
+FObject::FObject(bool gravity, bool visible, bool solid, bool drags)
 {
 	m_gravity = gravity;
 	m_visible = visible;
 	m_solid = solid;
+	m_drags = drags;
 	m_id = FObject::createID();
 	freeze();
 }
 
-FObject::FObject(FVector position, FVector size, bool gravity, bool visible, bool solid)
+FObject::FObject(FVector position, FVector size, bool gravity, bool visible, bool solid, bool drags)
 {
 	m_position = position;
 	m_size = size;
 	m_gravity = gravity;
 	m_visible = visible;
 	m_solid = solid;
+	m_drags = drags;
 	m_id = FObject::createID();
 	freeze();
 }
@@ -70,6 +73,11 @@ bool FObject::isStill()
 	return m_velocity.getLength() < 0.0001;
 }
 
+bool FObject::hasDrag()
+{
+	return m_drags;
+}
+
 int FObject::getID()
 {
 	return m_id;
@@ -105,6 +113,11 @@ void FObject::setVisible(bool value)
 	m_visible = value;
 }
 
+void FObject::setDrag(bool value)
+{
+	m_drags = value;
+}
+
 void FObject::freeze()
 {
 	land();
@@ -123,9 +136,14 @@ void FObject::halt()
 
 void FObject::tick(float delta)
 {
-	m_velocity = m_velocity * 0.97f;
+	if (m_drags)
+	{
+		m_velocity = m_velocity * 0.97f;
+	}
+	
 	if (m_velocity.getLength() < 0.001f)
 		m_velocity = FVector();
+		
 	if (isGravitational())
 	{
 		FVector down(0.f, 1.5f * delta);

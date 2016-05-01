@@ -21,10 +21,11 @@ public:
 	bool isHuman();
 	void move(FDirection);
 	void jump();
+	bool facingLeft();
 	
 	FWeapon& getWeapon();
 	int getWeaponIndex();
-	void fire(FDirection);
+	void fire();
 	void setWeaponIndex(int);
 	
 	int getLives();
@@ -39,7 +40,7 @@ public:
 	void tick(float);
 	
 private:
-	bool m_ai;
+	bool m_ai, m_facingLeft;
 	int m_currentWeapon, m_team, m_jumpCounter, m_health, m_maxHealth, m_lives;
 	std::vector<FWeapon> m_weapons;
 	std::string m_name;

@@ -1,7 +1,7 @@
 #include "FWeapon.hpp"
 
 FWeapon::FWeapon(int ammo, int maxAmmo, int cost, int load, FProjectileType projectileType, FWeaponType type)
-: FObject(false, false, false)
+: FObject(false, false, false, false)
 {
 	m_ammo = ammo;
 	m_maxAmmo = maxAmmo;
@@ -9,19 +9,27 @@ FWeapon::FWeapon(int ammo, int maxAmmo, int cost, int load, FProjectileType proj
 	m_load = load;
 	m_projectileType = projectileType;
 	m_type = type;
+	m_fired = false;
 }
 	
 bool FWeapon::canFire()
 {
 	return (m_ammo > m_cost);
 }
-	
-void FWeapon::fire(FDirection)
+
+bool FWeapon::hasFired()
+{
+	auto result = m_fired;
+	m_fired = false;
+	return result;
+}
+
+void FWeapon::fire()
 {
 	if (canFire())
 	{
 		m_ammo -= m_cost;
-		//m_game->createProjectile();
+		m_fired = true;
 	}
 }
 	

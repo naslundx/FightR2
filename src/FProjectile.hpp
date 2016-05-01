@@ -9,7 +9,7 @@
 class FProjectile : public FObject
 {
 public:
-	FProjectile(FVector, FVector, FProjectileType, float);
+	FProjectile(FVector, FVector, FProjectileType, float, bool, bool);
 	void tick(float);
 	FProjectileType getType();
 	bool isAlive();
