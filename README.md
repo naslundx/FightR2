@@ -2,7 +2,7 @@
 FightR is a cross-platform 2D platform game written in C++11, using SFML for graphics rendering. The original game was written for Windows in 2007, link and comparison will be available later. To distinguish, this is version 2.
 
 ## How to compile and run
-On Ubuntu, be sure to install SFML by `sudo apt-get install libsfml-dev`. Then, it's as simple as running this repo, step in the `src` directory, run `make`, then run the `a.out` file.
+On Ubuntu, be sure to install SFML by `sudo apt-get install libsfml-dev`. Then, it's as simple as cloning this repo, step in the `src` directory, run `make`, then run the `a.out` file.
 
 Instructions for Windows and OS X will follow later when things are working.
 
@@ -10,12 +10,12 @@ Instructions for Windows and OS X will follow later when things are working.
 
 ### Version 0.1 (ALPHA)
 - [ ] Implement two test weapons and projectiles
-- [ ] Handle fire of weapon
-- [ ] Handle weapon switching
+- [x] Handle fire of weapon
+- [x] Handle weapon switching
 - [ ] Projectile-Character collision detection
 - [ ] Projectile-Wall collision detection
-- [ ] Rendering of projectiles
-- [ ] Halt character when reaching left or right edge
+- [x] Rendering of projectiles
+- [ ] Only halt character when reaching left or right edge
 - [ ] Implement ladders
 - [ ] Jump only if standing solidly
 
