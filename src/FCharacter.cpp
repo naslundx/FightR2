@@ -166,6 +166,9 @@ void FCharacter::tick(float delta)
 	{
 		updateAI();
 	}
+
+	for(auto &weapon: m_weapons)
+		weapon.tick(delta);
 	
 	FObject::tick(delta);
 }
