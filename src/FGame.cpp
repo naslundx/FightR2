@@ -1,7 +1,5 @@
 #include "FGame.hpp"
 
-//Images were downloaded from opengameart.org
-
 FGame::FGame(std::shared_ptr<FEngine> engine)
 {
 	m_engine = engine;
@@ -86,6 +84,11 @@ void FGame::processEvents()
 			it->move(FDirection::up);
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 			it->move(FDirection::down);
+			
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
+			it->setWeaponIndex(it->getWeaponIndex() - 1);
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::X))
+			it->setWeaponIndex(it->getWeaponIndex() + 1);
 			
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
 			it->fire();
