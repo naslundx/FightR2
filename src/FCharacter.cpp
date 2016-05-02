@@ -144,6 +144,8 @@ void FCharacter::fire()
 
 void FCharacter::setWeaponIndex(int index)
 {
+	while (index < 0)
+		index += m_weapons.size();
 	m_currentWeapon = index % m_weapons.size();
 }
 
