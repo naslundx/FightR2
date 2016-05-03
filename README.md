@@ -17,7 +17,7 @@ Instructions for Windows and OS X will follow later when things are working.
 - [x] Rendering of projectiles
 - [ ] Only halt character when reaching left or right edge
 - [ ] Implement ladders
-- [ ] Jump only if standing solidly
+- [x] Jump only if standing solidly
 
 ### Version 0.2 (FIRST BETA)
 - [ ] Remove all frame-invariant hard-coded values
