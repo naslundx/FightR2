@@ -39,9 +39,11 @@ public:
 	void updateAI();
 	void tick(float);
 	
+	bool m_standing;	
 private:
 	bool m_ai, m_facingLeft;
-	int m_currentWeapon, m_team, m_jumpCounter, m_health, m_maxHealth, m_lives;
+	float m_jumpCounter;
+	int m_currentWeapon, m_team, m_health, m_maxHealth, m_lives;
 	std::vector<FWeapon> m_weapons;
 	std::string m_name;
 	FCharacterType m_type;

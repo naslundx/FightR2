@@ -78,6 +78,29 @@ bool FObject::hasDrag()
 	return m_drags;
 }
 
+bool FObject::intersects(FObject& other)
+{
+	auto left1 = getPosition().x,
+		 left2 = other.getPosition().x,
+		 right1 = getPosition().x + getSize().x,
+		 right2 = other.getPosition().x + other.getSize().x,
+		 top1 = getPosition().y,
+		 top2 = other.getPosition().y,
+		 bottom1 = getPosition().y + getSize().y,
+		 bottom2 = other.getPosition().y + other.getSize().y;
+		 
+	return
+		(left1 > left2 && left1 < right2 && top1 > top2 && top1 < bottom2) ||
+		(left1 > left2 && left1 < right2 && bottom1 > top2 && bottom1 < bottom2) ||
+		(right1 > left2 && right1 < right2 && top1 > top2 && top1 < bottom2)  ||
+		(right1 > left2 && right1 < right2 && bottom1 > top2 && bottom1 < bottom2) ||
+		
+		(left2 > left1 && left2 < right1 && top2 > top1 && top2 < bottom1) ||
+		(left2 > left1 && left2 < right1 && bottom2 > top1 && bottom2 < bottom1) ||
+		(right2 > left1 && right2 < right1 && top2 > top1 && top2 < bottom1)  ||
+		(right2 > left1 && right2 < right1 && bottom2 > top1 && bottom2 < bottom1);
+}
+
 int FObject::getID()
 {
 	return m_id;

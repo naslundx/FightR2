@@ -1,20 +1,21 @@
 #include "FWeapon.hpp"
 
-FWeapon::FWeapon(int ammo, int maxAmmo, int cost, int load, FProjectileType projectileType, FWeaponType type)
+FWeapon::FWeapon(float ammo, float maxAmmo, float cost, float maxCoolDown, FProjectileType projectileType, FWeaponType type)
 : FObject(false, false, false, false)
 {
 	m_ammo = ammo;
 	m_maxAmmo = maxAmmo;
 	m_cost = cost;
-	m_load = load;
 	m_projectileType = projectileType;
 	m_type = type;
+	m_coolDownMax = maxCoolDown;
+	m_coolDown = 0.f;
 	m_fired = false;
 }
 	
 bool FWeapon::canFire()
 {
-	return (m_ammo > m_cost);
+	return (m_ammo > m_cost && m_coolDown <= 0.f);
 }
 
 bool FWeapon::hasFired()
@@ -30,15 +31,30 @@ void FWeapon::fire()
 	{
 		m_ammo -= m_cost;
 		m_fired = true;
+		m_coolDown = m_coolDownMax;
 	}
 }
 	
 void FWeapon::tick(float delta)
 {
-	if (m_ammo < m_maxAmmo)
+	if (m_coolDown > 0.f)
 	{
-		m_ammo += m_load;
+		m_coolDown -= delta;
 	}
+	else
+	{
+		m_coolDown = 0.f;
+		if (m_ammo < m_maxAmmo)
+		{
+			m_ammo += delta;
+		}
+		else
+		{
+			m_ammo = m_maxAmmo;
+		}
+	}
+	
+	std::cout << "cd=" << m_coolDown << ", ammo=" << m_ammo << std::endl;
 }
 
 void FWeapon::reload()

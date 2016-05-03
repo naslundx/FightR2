@@ -120,10 +120,21 @@ void FEngine::collisionDetection()
 			
 		if (collisionUp(character) || collisionDown(character))
 			character.land();
+			
+		character.m_standing = collisionDown(character) || position.y >= m_level->getHeight() * tileSize - size.y;
 	}
 	
 	// Projectile&Character
-	//TODO
+	for (auto &projectile : m_projectiles)
+	{
+		for (auto &character : m_characters)
+		{
+			if (projectile.intersects(character))
+			{
+				//TODO
+			}
+		}
+	}
 	
 	// Projectile&Wall
 	for (auto &projectile : m_projectiles)
@@ -142,7 +153,16 @@ void FEngine::collisionDetection()
 	}
 	
 	// Powerup&Character
-	//TODO
+	for (auto &powerup : m_powerups)
+	{
+		for (auto &character : m_characters)
+		{
+			if (powerup.intersects(character))
+			{
+				//TODO
+			}
+		}
+	}
 	
 	// Powerup&Wall
 	for (auto &powerup : m_powerups)
