@@ -116,9 +116,9 @@ void FCharacter::move(FDirection direction)
 
 void FCharacter::jump()
 {
-	if (m_jumpCounter == 0 && fabs(m_velocity.y) < 0.1f )
+	if (m_standing && m_jumpCounter == 0.f && fabs(m_velocity.y) < 0.1f)
 	{
-		m_jumpCounter = 15;	// jump for 15 frames
+		m_jumpCounter = 0.3f;
 	}
 }
 
@@ -139,7 +139,7 @@ bool FCharacter::facingLeft()
 
 void FCharacter::fire()
 {
-	m_weapons[m_currentWeapon].fire(/*m_facingLeft ? FDirection::left : FDirection::right*/);
+	m_weapons[m_currentWeapon].fire();
 }
 
 void FCharacter::setWeaponIndex(int index)
@@ -157,11 +157,15 @@ void FCharacter::updateAI()
 
 void FCharacter::tick(float delta)
 {
-	if (m_jumpCounter > 0)
+	if (m_jumpCounter > 0.f)
 	{
-		--m_jumpCounter;
+		m_jumpCounter -= delta;
 		FVector jumpVector(0.f, -0.2f);
 		accelerate(jumpVector);		
+	}
+	else
+	{
+		m_jumpCounter = 0.f;
 	}
 
 	if (m_ai)
@@ -169,7 +173,7 @@ void FCharacter::tick(float delta)
 		updateAI();
 	}
 
-	for(auto &weapon: m_weapons)
+	for(auto &weapon : m_weapons)
 		weapon.tick(delta);
 	
 	FObject::tick(delta);

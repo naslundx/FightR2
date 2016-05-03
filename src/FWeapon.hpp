@@ -8,7 +8,7 @@
 class FWeapon: public FObject
 {
 public:
-	FWeapon(int, int, int, int, FProjectileType, FWeaponType);
+	FWeapon(float, float, float, float, FProjectileType, FWeaponType);
 	
 	bool hasFired();
 	bool canFire();
@@ -20,7 +20,7 @@ public:
 	
 private:
 	bool m_fired;
-	int m_ammo, m_maxAmmo, m_cost, m_load;
+	float m_ammo, m_maxAmmo, m_cost, m_coolDown, m_coolDownMax;
 	FProjectileType m_projectileType;
 	FWeaponType m_type;
 };

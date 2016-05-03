@@ -20,6 +20,7 @@ public:
 	bool isSolid();
 	bool isStill();
 	bool hasDrag();
+	bool intersects(FObject&);
 	int getID();
 	
 	void setPosition(const FVector);
