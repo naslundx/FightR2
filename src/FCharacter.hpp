@@ -31,6 +31,7 @@ public:
 	int getLives();
 	void setLives(int);
 	int getHealth();
+	int getMaxHealth();
 	void heal(int);
 	void hurt(int);
 	void resurrect();

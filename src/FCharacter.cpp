@@ -10,6 +10,7 @@ FCharacter::FCharacter(std::vector<FWeapon> weapons, std::string name, int team,
 	m_jumpCounter = 0;
 	m_type = type;
 	m_health = health;
+	m_maxHealth = health;
 	m_lives = lives;
 	m_currentWeapon = 0;
 	m_facingLeft = false;
@@ -25,6 +26,7 @@ FCharacter::FCharacter(FVector position, FVector velocity, std::vector<FWeapon> 
 	m_jumpCounter = 0;
 	m_type = type;
 	m_health = health;
+	m_maxHealth = health;
 	m_lives = lives;
 	m_currentWeapon = 0;
 	m_facingLeft = false;
@@ -43,6 +45,11 @@ void FCharacter::setLives(int lives)
 int FCharacter::getHealth()
 {
 	return m_health;
+}
+
+int FCharacter::getMaxHealth()
+{
+	return m_maxHealth;
 }
 
 void FCharacter::heal(int health)
