@@ -27,13 +27,13 @@ void FEngine::tick(float delta)
 			FVector position, velocity;
 			if (character.facingLeft())
 			{
-				position = FVector(character.getSize().x * 1.5f, character.getSize().y / 2.f) + character.getPosition();
+				position = FVector(-character.getSize().x * 0.5f, character.getSize().y / 2.f) + character.getPosition();
 				velocity = FVector(character.getVelocity().x - 1.f, 0.f);
 			}
 			else
 			{
-				position = FVector(character.getSize().x * -0.5f, character.getSize().y / 2.f) + character.getPosition();
-				velocity = FVector(character.getVelocity().x + 1.f, 0.f) + character.getVelocity();
+				position = FVector(character.getSize().x * 1.5f, character.getSize().y / 2.f) + character.getPosition();
+				velocity = FVector(character.getVelocity().x + 1.f, 0.f);
 			}
 			auto projectile = FProjectile(position, FVector(10, 10), weapon.getProjectileType(), 1000.f, false, false);
 			projectile.setVelocity(velocity);
@@ -49,7 +49,8 @@ void FEngine::tick(float delta)
 		powerup.tick(delta);
 	}
 
-	collisionDetection();	
+	collisionDetection();
+	clean();	
 	++m_ticks;
 	m_time += delta;
 }
@@ -136,31 +137,27 @@ void FEngine::collisionDetection()
 	}
 	
 	// Projectile&Character
-	for (auto &projectile : m_projectiles)
+	for (auto it = m_projectiles.begin(); m_projectiles.size() > 0 && it != m_projectiles.end(); ++it)
 	{
 		for (auto &character : m_characters)
 		{
-			if (projectile.intersects(character))
+			if (character.getHealth() > 0 && it->intersects(character))
 			{
-				//TODO
+				it = m_projectiles.erase(it);
+				character.hurt(10);
 			}
 		}
 	}
 	
 	// Projectile&Wall
-	for (auto &projectile : m_projectiles)
+	for (auto it = m_projectiles.begin(); m_projectiles.size() > 0 && it != m_projectiles.end(); ++it)
 	{
+		auto projectile = *it;
 		auto position = projectile.getPosition(), size = projectile.getSize();
-		if (position.clampTo(0.f, 0.f, m_level->getWidth() * tileSize - size.x, m_level->getHeight() * tileSize - size.y))
-		 	projectile.land();
+		bool outside = position.clampTo(0.f, 0.f, m_level->getWidth() * tileSize - size.x, m_level->getHeight() * tileSize - size.y);
 
-		projectile.setPosition(position);
-		
-		if (collisionLeft(projectile) || collisionRight(projectile))
-			projectile.halt();
-			
-		if (collisionUp(projectile) || collisionDown(projectile))
-			projectile.land();
+		if (outside || collisionLeft(projectile) || collisionRight(projectile) || collisionUp(projectile) || collisionDown(projectile))
+			m_projectiles.erase(it);
 	}
 	
 	// Powerup&Character
@@ -168,7 +165,7 @@ void FEngine::collisionDetection()
 	{
 		for (auto &character : m_characters)
 		{
-			if (powerup.intersects(character))
+			if (character.getHealth() > 0 && powerup.intersects(character))
 			{
 				//TODO
 			}
