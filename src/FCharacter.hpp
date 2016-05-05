@@ -34,6 +34,7 @@ public:
 	int getMaxHealth();
 	void heal(int);
 	void hurt(int);
+	void kill();
 	void resurrect();
 	
 	FCharacterType getType();
@@ -44,7 +45,7 @@ public:
 	bool m_ladder;	
 private:
 	bool m_ai, m_facingLeft;
-	float m_jumpCounter;
+	float m_jumpCounter, m_resurrect;
 	int m_currentWeapon, m_team, m_health, m_maxHealth, m_lives;
 	std::vector<FWeapon> m_weapons;
 	std::string m_name;

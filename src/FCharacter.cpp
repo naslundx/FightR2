@@ -14,6 +14,7 @@ FCharacter::FCharacter(std::vector<FWeapon> weapons, std::string name, int team,
 	m_lives = lives;
 	m_currentWeapon = 0;
 	m_facingLeft = false;
+	m_resurrect = 0.f;
 }
 
 FCharacter::FCharacter(FVector position, FVector velocity, std::vector<FWeapon> weapons, std::string name, int team, bool ai, FCharacterType type, int health, int lives)
@@ -30,6 +31,7 @@ FCharacter::FCharacter(FVector position, FVector velocity, std::vector<FWeapon> 
 	m_lives = lives;
 	m_currentWeapon = 0;
 	m_facingLeft = false;
+	m_resurrect = 0.f;
 }
 
 int FCharacter::getLives()
@@ -62,11 +64,17 @@ void FCharacter::heal(int health)
 void FCharacter::hurt(int health)
 {
 	m_health -= health;
-	if (m_health < 0)
+	if (m_health <= 0)
 	{
-		m_health = 0;
-		--m_lives;
+		kill();
 	}
+}
+
+void FCharacter::kill()
+{
+	m_health = 0;
+	--m_lives;
+	m_resurrect = 3.f;
 }
 
 void FCharacter::resurrect()
@@ -192,5 +200,13 @@ void FCharacter::tick(float delta)
 		setGravitational(!m_ladder);
 		
 		FObject::tick(delta);
+	}
+	else
+	{
+		m_resurrect -= delta;
+		if (m_resurrect < 0.f)
+		{
+			resurrect();
+		}
 	}
 }
