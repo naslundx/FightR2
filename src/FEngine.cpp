@@ -21,35 +21,51 @@ void FEngine::tick(float delta)
 	for (auto &character : m_characters)
 	{
 		character.tick(delta);
-		auto &weapon = character.getWeapon();
-		if (weapon.hasFired())
+		if (character.getHealth() > 0)
 		{
-			FVector position, velocity;
-			if (character.facingLeft())
+			auto &weapon = character.getWeapon();
+			if (weapon.hasFired())
 			{
-				position = FVector(-character.getSize().x * 0.5f, character.getSize().y / 2.f) + character.getPosition();
-				velocity = FVector(character.getVelocity().x - 1.f, 0.f);
+				// TODO: Move to createProjectile()
+				FVector position, velocity;
+				if (character.facingLeft())
+				{
+					position = FVector(-character.getSize().x * 0.5f, character.getSize().y / 2.f) + character.getPosition();
+					velocity = FVector(character.getVelocity().x - 1.f, 0.f);
+				}
+				else
+				{
+					position = FVector(character.getSize().x * 1.5f, character.getSize().y / 2.f) + character.getPosition();
+					velocity = FVector(character.getVelocity().x + 1.f, 0.f);
+				}
+				auto projectile = FProjectile(position, FVector(10, 10), weapon.getProjectileType(), 1000.f, false, false);
+				projectile.setVelocity(velocity);
+				createProjectile(projectile);
 			}
-			else
-			{
-				position = FVector(character.getSize().x * 1.5f, character.getSize().y / 2.f) + character.getPosition();
-				velocity = FVector(character.getVelocity().x + 1.f, 0.f);
-			}
-			auto projectile = FProjectile(position, FVector(10, 10), weapon.getProjectileType(), 1000.f, false, false);
-			projectile.setVelocity(velocity);
-			createProjectile(projectile);
 		}
 	}
+	
 	for (auto &projectile : m_projectiles)
 	{
 		projectile.tick(delta);
 	}
+	
 	for (auto &powerup : m_powerups)
 	{
 		powerup.tick(delta);
 	}
 
 	collisionDetection();
+	
+	for (auto &character : m_characters)
+	{
+		if (character.getHealth() <= 0.f)
+		{
+			// TODO: This only has to happen once per frame
+			character.setPosition(findEmptySpace(character.getSize()));
+		}
+	}
+	
 	clean();	
 	++m_ticks;
 	m_time += delta;
@@ -259,7 +275,7 @@ bool FEngine::touchingLadder(FObject& object)
 	auto position = object.getPosition(), size = object.getSize(); 
 	for (float x = position.x; x <= position.x + size.x; x += tileSize)
 	{
-		for (float y = position.y; y < position.y + size.y; y += tileSize)
+		for (float y = position.y; y <= position.y + size.y; y += tileSize)
 		{
 			if (tileIsLadder(m_level->get(x / tileSize, y / tileSize)))
 			{
@@ -283,4 +299,33 @@ std::vector<FProjectile>& FEngine::getProjectiles()
 std::vector<FPowerup>& FEngine::getPowerups()
 {
 	return m_powerups;
+}
+
+FVector FEngine::findEmptySpace(FVector& size)
+{
+	auto tileSize = m_level->getTileSize();
+	std::random_device rd;
+	std::mt19937 gen(rd());
+	std::uniform_real_distribution<> x(0, m_level->getWidth() * tileSize - size.x);
+	std::uniform_real_distribution<> y(0, m_level->getHeight() * tileSize - size.y);
+	bool result;
+	
+	while (true)
+	{
+		FVector position(x(gen), y(gen));
+		result = true;
+		
+		for (float x = position.x; result && x <= position.x + size.x; x += tileSize)
+		{
+			for (float y = position.y; result && y <= position.y + size.y; y += tileSize)
+			{
+				if (tileIsSolid(m_level->get(x / tileSize, y / tileSize)))
+					result = false;
+			}
+		}
+		
+		if (result)
+			return position;
+	}
+	return FVector();
 }

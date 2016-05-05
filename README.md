@@ -18,13 +18,14 @@ Instructions for Windows and OS X will follow later when things are working.
 - [x] Only halt character when reaching left or right edge
 - [x] Implement ladders
 - [x] Jump only if standing solidly
-- [ ] Resurrect dead characters
+- [x] Resurrect dead characters
+- [ ] Move relevant constants to FWorld.hpp
 
 ### Version 0.2 (FIRST BETA)
 - [ ] Remove all frame-invariant hard-coded values
 - [x] Smooth movement and jumping
 - [ ] Load levels from file
-- [ ] Correct rendering of weapons
+- [x] Correct rendering of weapons
 - [ ] Implement test powerups
 - [x] Game logic (stop when a team has won)
 - [ ] Basic rendering of player stats

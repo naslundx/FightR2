@@ -2,6 +2,7 @@
 #define __FENGINE_HPP__
 
 #include <vector>
+#include <random>
 
 #include "FDirection.hpp"
 #include "FObject.hpp"
@@ -42,6 +43,7 @@ private:
 	bool collisionUp(FObject&);
 	bool collisionDown(FObject&);
 	bool touchingLadder(FObject&);
+	FVector findEmptySpace(FVector&);
 
 	std::vector<FCharacter> m_characters;
 	std::vector<FProjectile> m_projectiles;
