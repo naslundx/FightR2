@@ -161,26 +161,29 @@ void FCharacter::updateAI()
 
 void FCharacter::tick(float delta)
 {
-	if (m_jumpCounter > 0.f)
+	if (getHealth() > 0)
 	{
-		m_jumpCounter -= delta;
-		FVector jumpVector(0.f, -0.4f);
-		accelerate(jumpVector);		
-	}
-	else
-	{
-		m_jumpCounter = 0.f;
-	}
+		if (m_jumpCounter > 0.f)
+		{
+			m_jumpCounter -= delta;
+			FVector jumpVector(0.f, -0.4f);
+			accelerate(jumpVector);		
+		}
+		else
+		{
+			m_jumpCounter = 0.f;
+		}
 
-	if (m_ai)
-	{
-		updateAI();
-	}
+		if (m_ai)
+		{
+			updateAI();
+		}
 
-	for (auto &weapon : m_weapons)
-		weapon.tick(delta);
+		for (auto &weapon : m_weapons)
+			weapon.tick(delta);
+			
+		setGravitational(!m_ladder);
 		
-	setGravitational(!m_ladder);
-	
-	FObject::tick(delta);
+		FObject::tick(delta);
+	}
 }

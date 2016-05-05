@@ -28,7 +28,7 @@ int main(int argc, char** argv)
 	FCharacter one(
 		FVector(250.f, 150.f),
 		FVector(20.f, 40.f),
-		std::vector<FWeapon> { FWeapon(10.f, 10.f, 2.f, 1.f, FProjectileType::DEBUG, FWeaponType::DEBUG) },
+		std::vector<FWeapon> { FWeapon(10.f, 10.f, 0.5f, 0.25f, FProjectileType::DEBUG, FWeaponType::DEBUG) },
 		nameone,
 		1,
 		false,
@@ -39,7 +39,7 @@ int main(int argc, char** argv)
 	FCharacter two(
 		FVector(450.f, 350.f),
 		FVector(20.f, 40.f), // float ammo, float maxAmmo, float cost, float maxCoolDown
-		std::vector<FWeapon> { FWeapon(10.f, 10.f, 2.f, 1.f, FProjectileType::DEBUG, FWeaponType::DEBUG) },
+		std::vector<FWeapon> { FWeapon(10.f, 10.f, 0.5f, 0.25f, FProjectileType::DEBUG, FWeaponType::DEBUG) },
 		nameone,
 		2,
 		true,
@@ -59,6 +59,8 @@ int main(int argc, char** argv)
 	game.setTile(FTile::DEBUG_SOLID, "images/Metalplates.png");
 	game.setTile(FTile::DEBUG_LADDER, "images/ladder.png");
 	game.run();
+	
+	while (true);
 
 	return 0;
 }
