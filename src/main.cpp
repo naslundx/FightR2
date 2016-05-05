@@ -57,6 +57,7 @@ int main(int argc, char** argv)
 	game.setProjectileType(FProjectileType::DEBUG, "images/bug.png");
 	game.setTile(FTile::DEBUG_BLANK, "images/Sandstone.png");
 	game.setTile(FTile::DEBUG_SOLID, "images/Metalplates.png");
+	game.setTile(FTile::DEBUG_LADDER, "images/ladder.png");
 	game.run();
 
 	return 0;

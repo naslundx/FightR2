@@ -92,23 +92,27 @@ FCharacterType FCharacter::getType()
 
 void FCharacter::move(FDirection direction)
 {
+	const float speed = 0.23f;
 	FVector acceleration;
 	switch (direction)
 	{
 		case up:
-			//TODO Add ladders
-			jump();
+			if (m_ladder)
+				acceleration = FVector(0.f, -speed);
+			else
+				jump();
 			break;
 		case down:
-			//TODO Add ladders
+			if (m_ladder)
+				acceleration = FVector(0.f, speed);
 			break;
 		case left:
 			m_facingLeft = true;
-			acceleration = FVector(-0.09f, 0.f);
+			acceleration = FVector(-speed, 0.f);
 			break;
 		case right:
 			m_facingLeft = false;
-			acceleration = FVector(0.09f, 0.f);
+			acceleration = FVector(speed, 0.f);
 			break;
 	}
 	accelerate(acceleration);
@@ -118,7 +122,7 @@ void FCharacter::jump()
 {
 	if (m_standing && m_jumpCounter == 0.f && fabs(m_velocity.y) < 0.1f)
 	{
-		m_jumpCounter = 0.3f;
+		m_jumpCounter = 0.4f;
 	}
 }
 
@@ -160,7 +164,7 @@ void FCharacter::tick(float delta)
 	if (m_jumpCounter > 0.f)
 	{
 		m_jumpCounter -= delta;
-		FVector jumpVector(0.f, -0.2f);
+		FVector jumpVector(0.f, -0.4f);
 		accelerate(jumpVector);		
 	}
 	else
@@ -173,8 +177,10 @@ void FCharacter::tick(float delta)
 		updateAI();
 	}
 
-	for(auto &weapon : m_weapons)
+	for (auto &weapon : m_weapons)
 		weapon.tick(delta);
+		
+	setGravitational(!m_ladder);
 	
 	FObject::tick(delta);
 }

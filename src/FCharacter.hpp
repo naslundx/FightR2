@@ -39,7 +39,8 @@ public:
 	void updateAI();
 	void tick(float);
 	
-	bool m_standing;	
+	bool m_standing;
+	bool m_ladder;	
 private:
 	bool m_ai, m_facingLeft;
 	float m_jumpCounter;

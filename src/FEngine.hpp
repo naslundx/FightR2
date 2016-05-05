@@ -41,6 +41,7 @@ private:
 	bool collisionRight(FObject&);
 	bool collisionUp(FObject&);
 	bool collisionDown(FObject&);
+	bool touchingLadder(FObject&);
 
 	std::vector<FCharacter> m_characters;
 	std::vector<FProjectile> m_projectiles;
