@@ -161,15 +161,15 @@ void FObject::tick(float delta)
 {
 	if (m_drags)
 	{
-		m_velocity = m_velocity * 0.97f;
+		m_velocity = m_velocity * 0.9f;
 	}
 	
-	if (m_velocity.getLength() < 0.001f)
+	if (m_velocity.getLength() < 0.01f)
 		m_velocity = FVector();
 		
 	if (isGravitational())
 	{
-		FVector down(0.f, 1.5f * delta);
+		FVector down(0.f, 8.9f * delta);
 		accelerate(down);
 	}
 	

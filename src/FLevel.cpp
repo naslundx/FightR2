@@ -33,6 +33,9 @@ void FLevel::randomize()
 	//TODO
 	for (int x = m_width / 2 - 10; x < m_width / 2 + 10; ++x)
 		set(x, m_height / 2, FTile::DEBUG_SOLID);
+		
+	for (int y = 2; y < m_height - 6; ++y)
+		set(12, y, FTile::DEBUG_LADDER);
 }
 
 void FLevel::loadFromFile(std::string path)

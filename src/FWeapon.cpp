@@ -53,8 +53,6 @@ void FWeapon::tick(float delta)
 			m_ammo = m_maxAmmo;
 		}
 	}
-	
-	std::cout << "cd=" << m_coolDown << ", ammo=" << m_ammo << std::endl;
 }
 
 void FWeapon::reload()

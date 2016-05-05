@@ -3,9 +3,11 @@
 
 enum class FTile { 
 	DEBUG_BLANK,
-	DEBUG_SOLID
+	DEBUG_SOLID,
+	DEBUG_LADDER
 };
 
 bool tileIsSolid(FTile);
+bool tileIsLadder(FTile);
 
 #endif

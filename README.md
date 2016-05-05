@@ -15,13 +15,13 @@ Instructions for Windows and OS X will follow later when things are working.
 - [ ] Projectile-Character collision detection
 - [ ] Projectile-Wall collision detection
 - [x] Rendering of projectiles
-- [ ] Only halt character when reaching left or right edge
-- [ ] Implement ladders
+- [x] Only halt character when reaching left or right edge
+- [x] Implement ladders
 - [x] Jump only if standing solidly
 
 ### Version 0.2 (FIRST BETA)
 - [ ] Remove all frame-invariant hard-coded values
-- [ ] Smooth movement and jumping
+- [x] Smooth movement and jumping
 - [ ] Load levels from file
 - [ ] Rendering of weapons
 - [ ] Implement test powerups

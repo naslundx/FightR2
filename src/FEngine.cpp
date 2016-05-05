@@ -110,18 +110,29 @@ void FEngine::collisionDetection()
 	for (auto &character : m_characters)
 	{
 		auto position = character.getPosition(), size = character.getSize();
+		if (position.clampTo(0.f, -10.f, m_level->getWidth() * tileSize - size.x, m_level->getHeight() * tileSize))
+		 	character.halt();
+		
 		if (position.clampTo(0.f, 0.f, m_level->getWidth() * tileSize - size.x, m_level->getHeight() * tileSize - size.y))
 		 	character.land();
 
+		character.m_standing = false;
 		character.setPosition(position);
 		
+		if (collisionUp(character))
+			character.land();
+			
+		if (collisionDown(character))
+		{
+			character.land();
+			character.m_standing = true;
+		}
+			
 		if (collisionLeft(character) || collisionRight(character))
 			character.halt();
 			
-		if (collisionUp(character) || collisionDown(character))
-			character.land();
-			
-		character.m_standing = collisionDown(character) || position.y >= m_level->getHeight() * tileSize - size.y;
+		character.m_standing = character.m_standing || position.y >= m_level->getHeight() * tileSize - size.y;
+		character.m_ladder = touchingLadder(character);
 	}
 	
 	// Projectile&Character
@@ -205,7 +216,7 @@ bool FEngine::collisionDown(FObject& object)
 	{
 		if (tileIsSolid(m_level->get(x / tileSize, (position.y + size.y) / tileSize)))
 		{
-			position.y -= fmod(position.y, tileSize) - 0.1f;
+			position.y -= fmod(position.y, tileSize) + 0.1f;
 			object.setPosition(position);
 			return true;
 		}
@@ -240,6 +251,23 @@ bool FEngine::collisionRight(FObject& object)
 			position.x -= fmod(position.x, tileSize);
 			object.setPosition(position);
 			return true;
+		}
+	}
+	return false;
+}
+
+bool FEngine::touchingLadder(FObject& object)
+{
+	auto tileSize = m_level->getTileSize();
+	auto position = object.getPosition(), size = object.getSize(); 
+	for (float x = position.x; x <= position.x + size.x; x += tileSize)
+	{
+		for (float y = position.y; y < position.y + size.y; y += tileSize)
+		{
+			if (tileIsLadder(m_level->get(x / tileSize, y / tileSize)))
+			{
+				return true;
+			}
 		}
 	}
 	return false;
