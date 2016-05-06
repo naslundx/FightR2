@@ -61,10 +61,16 @@ void FEngine::tick(float delta)
 	{
 		if (character.getHealth() <= 0.f)
 		{
-			// TODO: This only has to happen once per frame
+			// TODO: This only has to happen once per death
 			character.setPosition(findEmptySpace(character.getSize()));
 		}
 	}
+	
+	std::random_device rd;
+	std::mt19937 gen(rd());
+	std::uniform_real_distribution<> randomvalue(0, 1);
+	if (randomvalue(gen) < 0.01f)
+		createPowerup();
 	
 	clean();	
 	++m_ticks;
@@ -106,7 +112,10 @@ void FEngine::createProjectile(FProjectile projectile)
 
 void FEngine::createPowerup()
 {
-	//TODO
+	FVector size(25.f, 25.f);
+	FVector position = findEmptySpace(size);
+	FPowerup powerup(position, size, FPowerupType::DEBUG, 10.f);
+	m_powerups.push_back(powerup);
 }
 
 void FEngine::createEffect()
@@ -116,7 +125,13 @@ void FEngine::createEffect()
 
 void FEngine::clean()
 {
-	//TODO
+	for (auto it = m_powerups.begin(); m_powerups.size() > 0 && it != m_powerups.end(); ++it)
+	{
+		if (!it->isAlive())
+		{
+			it = m_powerups.erase(it);
+		}
+	}
 }
 
 void FEngine::collisionDetection()
