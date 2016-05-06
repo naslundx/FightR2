@@ -21,6 +21,8 @@ void FEngine::tick(float delta)
 	for (auto &character : m_characters)
 	{
 		character.tick(delta);
+		character.updateAI(&m_characters, &m_projectiles, &m_powerups);
+		
 		if (character.getHealth() > 0)
 		{
 			auto &weapon = character.getWeapon();
@@ -69,7 +71,7 @@ void FEngine::tick(float delta)
 	std::random_device rd;
 	std::mt19937 gen(rd());
 	std::uniform_real_distribution<> randomvalue(0, 1);
-	if (randomvalue(gen) < 0.01f)
+	if (randomvalue(gen) < 0.005f)
 		createPowerup();
 	
 	clean();	

@@ -168,10 +168,31 @@ void FCharacter::setWeaponIndex(int index)
 	m_currentWeapon = index % m_weapons.size();
 }
 
-void FCharacter::updateAI()
+void FCharacter::updateAI(std::vector<FCharacter> *characters, std::vector<FProjectile> *projectiles, std::vector<FPowerup> *powerups)
 {
-	//TODO
-	move(FDirection::left); // just do something
+	if (!m_ai)
+		return;
+	
+	auto other = (*characters)[0];
+	auto myPos = getPosition() + other.getSize() * 0.5f; // TODO Add getCenter() to FObject
+	auto otherPos = other.getPosition() + other.getSize() * 0.5f;
+	
+	if (m_ladder && std::fabs(otherPos.y - myPos.y) > 10.f)
+	{
+		if (otherPos.y < getPosition().y)
+			move(FDirection::up);
+		else
+			move(FDirection::down);
+	}
+	else
+	{	
+		if (std::fabs(otherPos.x - myPos.x) < 30.f)
+			move(FDirection::up);
+		else if (otherPos.x < myPos.x)
+			move(FDirection::left);
+		else
+			move(FDirection::right);
+	}
 }
 
 void FCharacter::tick(float delta)
@@ -187,11 +208,6 @@ void FCharacter::tick(float delta)
 		else
 		{
 			m_jumpCounter = 0.f;
-		}
-
-		if (m_ai)
-		{
-			updateAI();
 		}
 
 		for (auto &weapon : m_weapons)
