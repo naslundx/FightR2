@@ -8,37 +8,25 @@ Instructions for Windows and OS X will follow later when things are working.
 
 ## Roadmap
 
-### Version 0.1 (ALPHA)
-- [ ] Implement two test weapons and projectiles
-- [x] Handle fire of weapon
-- [x] Handle weapon switching
-- [x] Projectile-Character collision detection
-- [x] Projectile-Wall collision detection
-- [x] Rendering of projectiles
-- [x] Only halt character when reaching left or right edge
-- [x] Implement ladders
-- [x] Jump only if standing solidly
-- [x] Resurrect dead characters
-- [ ] Move relevant constants to FWorld.hpp
-
-### Version 0.2 (FIRST BETA)
+### Version 0.1 (FIRST BETA)
 - [ ] Remove all frame-invariant hard-coded values
-- [x] Smooth movement and jumping
+- [ ] Implement better system for handling different types of weapons, powerups etc.
 - [ ] Load levels from file
-- [x] Correct rendering of weapons
 - [ ] Implement test powerups
-- [x] Game logic (stop when a team has won)
 - [ ] Basic rendering of player stats
-- [ ] Basic AI
+- [ ] Improved AI
 - [ ] Implement ladders and climbing
 - [ ] Render basic graphic effects
-- [ ] Better level randomization
+- [ ] Implement basic effects
+- [ ] Implement a second test weapon and projectile
+- [ ] Move all relevant constants to FWorld.hpp
 
-### Version 0.3 (SECOND BETA)
+### Version 0.2 (SECOND BETA)
+- [ ] Better level randomization
 - [ ] General bug fixes, clean memory leaks
 - [ ] Improved AI
 - [ ] Basic UI for starting, restarting, ending a game
-- [ ] Improved in-game UI (better player stats rendering)
+- [ ] Improved in-game UI
 - [ ] Document running on Windows and OS X
 - [ ] Write good levels
 - [ ] More weapons and projectiles
@@ -47,3 +35,6 @@ Instructions for Windows and OS X will follow later when things are working.
 - [ ] Animated character(s)
 - [ ] Clean up and document code
 - [ ] Optimize for efficiency
+
+### Version 1.0
+- [ ] ???
