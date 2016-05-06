@@ -55,6 +55,7 @@ int main(int argc, char** argv)
 	game.setCharacterType(FCharacterType::DEBUG, "images/business.png");
 	game.setWeaponType(FWeaponType::DEBUG, "images/Sandstone.png");
 	game.setProjectileType(FProjectileType::DEBUG, "images/bug.png");
+	game.setPowerupType(FPowerupType::DEBUG, "images/gift.png");
 	game.setTile(FTile::DEBUG_BLANK, "images/Sandstone.png");
 	game.setTile(FTile::DEBUG_SOLID, "images/Metalplates.png");
 	game.setTile(FTile::DEBUG_LADDER, "images/ladder.png");

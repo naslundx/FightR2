@@ -10,6 +10,7 @@ FPowerup::FPowerup(FVector position, FVector size, FPowerupType type, float time
 void FPowerup::tick(float delta)
 {
 	m_time -= delta;
+	FObject::tick(delta);
 }
 
 FPowerupType FPowerup::getType()
