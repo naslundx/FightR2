@@ -10,7 +10,7 @@ class FProjectile : public FObject
 {
 public:
 	FProjectile(FVector, FVector, FProjectileType, float, bool, bool);
-	void tick(float);
+	void tick(const float);
 	FProjectileType getType();
 	bool isAlive();
 	

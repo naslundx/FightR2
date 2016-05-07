@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <cmath>
+#include <random>
 
 #include "FDirection.hpp"
 #include "FObject.hpp"
@@ -47,8 +48,6 @@ public:
 	bool m_ladder;
 
 private:
-	
-
 	bool m_ai, m_facingLeft;
 	float m_jumpCounter, m_resurrect;
 	int m_currentWeapon, m_team, m_health, m_maxHealth, m_lives;

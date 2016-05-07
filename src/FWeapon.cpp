@@ -35,7 +35,7 @@ void FWeapon::fire()
 	}
 }
 	
-void FWeapon::tick(float delta)
+void FWeapon::tick(const float delta)
 {
 	if (m_coolDown > 0.f)
 	{

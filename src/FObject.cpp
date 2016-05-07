@@ -43,6 +43,11 @@ FVector& FObject::getPosition()
 	return m_position;
 }
 
+FVector FObject::getCenter()
+{
+	return m_position + m_size / 2.f;
+}
+
 FVector& FObject::getSize()
 {
 	return m_size;
@@ -126,17 +131,17 @@ void FObject::accelerate(const FVector& acceleration)
 	m_velocity += acceleration;
 }
 
-void FObject::setGravitational(bool value)
+void FObject::setGravitational(const bool value)
 {
 	m_gravity = value;
 }
 
-void FObject::setVisible(bool value)
+void FObject::setVisible(const bool value)
 {
 	m_visible = value;
 }
 
-void FObject::setDrag(bool value)
+void FObject::setDrag(const bool value)
 {
 	m_drags = value;
 }
@@ -157,7 +162,7 @@ void FObject::halt()
 	m_velocity.x = 0.f;
 }
 
-void FObject::tick(float delta)
+void FObject::tick(const float delta)
 {
 	if (m_drags)
 	{

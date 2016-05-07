@@ -10,7 +10,7 @@ class FPowerup : public FObject
 {
 public:
 	FPowerup(FVector, FVector, FPowerupType, float);
-	void tick(float);
+	void tick(const float);
 	FPowerupType getType();
 	bool isAlive();
 	

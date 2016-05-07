@@ -16,7 +16,7 @@ FGame::FGame(std::shared_ptr<FEngine> engine)
 	m_window = std::unique_ptr<sf::RenderWindow>(window);
 }
 
-std::shared_ptr<sf::Sprite> FGame::loadSprite(std::string fileName, int width, int height)
+std::shared_ptr<sf::Sprite> FGame::loadSprite(const std::string fileName, const int width, const int height)
 {
 	auto exists = m_sprites.find(fileName);
 	if (exists == m_sprites.end())
@@ -124,16 +124,9 @@ void FGame::render()
 			auto weaponSprite = loadSprite(m_weaponTypeMap[weapon.getType()], weapon.getSize().x, weapon.getSize().y);
 			if (character.facingLeft())
 				weaponSprite->setPosition(sf::Vector2f(character.getPosition().x, character.getPosition().y + character.getSize().y / 2.f));
-			else // right face
+			else
 				weaponSprite->setPosition(sf::Vector2f(character.getPosition().x + character.getSize().x / 2.f, character.getPosition().y + character.getSize().y / 2.f));
 			m_window->draw(*weaponSprite);
-
-			// Show Health Bar
-			sf::RectangleShape healthBar;
-			healthBar.setSize(sf::Vector2f(character.getSize().x * character.getHealth() / character.getMaxHealth(), character.getSize().y / 4.f));
-			healthBar.setPosition(sf::Vector2f(character.getPosition().x, character.getPosition().y - 0.5f * character.getSize().y));
-			healthBar.setFillColor(sf::Color(0, 255, 0));
-			m_window->draw(healthBar);
 		}
 	}
 	
@@ -154,7 +147,36 @@ void FGame::render()
 	}
 	
 	// Render effects
-	//TODO
+	for (auto &effect : m_engine->getEffects())
+	{
+		auto sprite = loadSprite(m_effectTypeMap[effect.getType()], effect.getSize().x, effect.getSize().y);
+		sprite->setPosition(sf::Vector2f(effect.getPosition().x, effect.getPosition().y));
+		m_window->draw(*sprite);
+	}
+	
+	// Draw GUI
+	for (auto &character : m_engine->getCharacters())
+	{
+		if (character.getHealth() > 0)
+		{
+			// Show Health Bar
+			sf::RectangleShape healthBarBorder;
+			healthBarBorder.setSize(sf::Vector2f(character.getSize().x, 10.f));
+			healthBarBorder.setPosition(sf::Vector2f(character.getPosition().x, character.getPosition().y - 12.f));
+			healthBarBorder.setFillColor(sf::Color(50, 50, 50));
+			m_window->draw(healthBarBorder);
+			
+			sf::RectangleShape healthBar;
+			const double health = (double)character.getHealth() / (double)character.getMaxHealth();
+			healthBar.setSize(sf::Vector2f(character.getSize().x * health, 10.f));
+			healthBar.setPosition(sf::Vector2f(character.getPosition().x, character.getPosition().y - 12.f));
+			if (health < 0.3)
+				healthBar.setFillColor(sf::Color(255, 0, 0));
+			else
+				healthBar.setFillColor(sf::Color(0, 255, 0));
+			m_window->draw(healthBar);
+		}
+	}
 
 	m_window->display();
 }
@@ -182,4 +204,9 @@ void FGame::setProjectileType(FProjectileType typeName, std::string filename)
 void FGame::setPowerupType(FPowerupType typeName, std::string filename)
 {
 	m_powerupTypeMap[typeName] = filename;	
+}
+
+void FGame::setEffectType(FEffectType typeName, std::string filename)
+{
+	m_effectTypeMap[typeName] = filename;	
 }

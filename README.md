@@ -12,12 +12,8 @@ Instructions for Windows and OS X will follow later when things are working.
 - [ ] Remove all frame-invariant hard-coded values
 - [ ] Implement better system for handling different types of weapons, powerups etc.
 - [ ] Load levels from file
-- [ ] Implement test powerups
 - [ ] Basic rendering of player stats
 - [ ] Improved AI
-- [ ] Implement ladders and climbing
-- [ ] Render basic graphic effects
-- [ ] Implement basic effects
 - [ ] Implement a second test weapon and projectile
 - [ ] Move all relevant constants to FWorld.hpp
 

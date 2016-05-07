@@ -28,7 +28,6 @@ void FEngine::tick(float delta)
 			auto &weapon = character.getWeapon();
 			if (weapon.hasFired())
 			{
-				// TODO: Move to createProjectile()
 				FVector position, velocity;
 				if (character.facingLeft())
 				{
@@ -39,10 +38,8 @@ void FEngine::tick(float delta)
 				{
 					position = FVector(character.getSize().x * 1.5f, character.getSize().y / 2.f) + character.getPosition();
 					velocity = FVector(character.getVelocity().x + 1.f, 0.f);
-				}
-				auto projectile = FProjectile(position, FVector(10, 10), weapon.getProjectileType(), 1000.f, false, false);
-				projectile.setVelocity(velocity);
-				createProjectile(projectile);
+				}				
+				createProjectile(position, velocity, weapon.getProjectileType());
 			}
 		}
 	}
@@ -61,7 +58,7 @@ void FEngine::tick(float delta)
 	
 	for (auto &character : m_characters)
 	{
-		if (character.getHealth() <= 0.f)
+		if (character.getHealth() <= 0)
 		{
 			// TODO: This only has to happen once per death
 			character.setPosition(findEmptySpace(character.getSize()));
@@ -107,8 +104,10 @@ float FEngine::getTime()
 	return m_time;
 }
 
-void FEngine::createProjectile(FProjectile projectile)
+void FEngine::createProjectile(const FVector& position, const FVector& velocity, FProjectileType type)
 {
+	auto projectile = FProjectile(position, FVector(10, 10), type, 1000.f, false, false);
+	projectile.setVelocity(velocity);
 	m_projectiles.push_back(projectile);
 }
 
@@ -127,11 +126,27 @@ void FEngine::createEffect()
 
 void FEngine::clean()
 {
-	for (auto it = m_powerups.begin(); m_powerups.size() > 0 && it != m_powerups.end(); ++it)
+	for (auto it = m_powerups.begin(); m_powerups.size() > 0 && it != m_powerups.end();)
 	{
 		if (!it->isAlive())
 		{
 			it = m_powerups.erase(it);
+		}
+		else
+		{
+			++it;
+		}
+	}
+	
+	for (auto it = m_effects.begin(); m_effects.size() > 0 && it != m_effects.end();)
+	{
+		if (!it->isAlive())
+		{
+			it = m_effects.erase(it);
+		}
+		else
+		{
+			++it;
 		}
 	}
 }
@@ -170,20 +185,24 @@ void FEngine::collisionDetection()
 	}
 	
 	// Projectile&Character
-	for (auto it = m_projectiles.begin(); m_projectiles.size() > 0 && it != m_projectiles.end(); ++it)
+	for (auto it = m_projectiles.begin(); m_projectiles.size() > 0 && it != m_projectiles.end();)
 	{
+		bool erased = false;
 		for (auto &character : m_characters)
 		{
 			if (character.getHealth() > 0 && it->intersects(character))
 			{
 				it = m_projectiles.erase(it);
 				character.hurt(10);
+				erased = true;
 			}
 		}
+		if (!erased)
+			++it;
 	}
 	
 	// Projectile&Wall
-	for (auto it = m_projectiles.begin(); m_projectiles.size() > 0 && it != m_projectiles.end(); ++it)
+	for (auto it = m_projectiles.begin(); m_projectiles.size() > 0 && it != m_projectiles.end();)
 	{
 		auto projectile = *it;
 		auto position = projectile.getPosition(), size = projectile.getSize();
@@ -191,18 +210,25 @@ void FEngine::collisionDetection()
 
 		if (outside || collisionLeft(projectile) || collisionRight(projectile) || collisionUp(projectile) || collisionDown(projectile))
 			m_projectiles.erase(it);
+		else
+			++it;
 	}
 	
 	// Powerup&Character
-	for (auto &powerup : m_powerups)
+	for (auto it = m_powerups.begin(); m_powerups.size() > 0 && it != m_powerups.end();)
 	{
+		bool erased = false;
 		for (auto &character : m_characters)
 		{
-			if (character.getHealth() > 0 && powerup.intersects(character))
+			if (character.getHealth() > 0 && it->intersects(character))
 			{
-				//TODO
+				character.heal(100);			
+				it = m_powerups.erase(it);
+				erased = true;
 			}
 		}
+		if (!erased)
+			++it;
 	}
 	
 	// Powerup&Wall
@@ -316,6 +342,11 @@ std::vector<FProjectile>& FEngine::getProjectiles()
 std::vector<FPowerup>& FEngine::getPowerups()
 {
 	return m_powerups;
+}
+
+std::vector<FEffect>& FEngine::getEffects()
+{
+	return m_effects;
 }
 
 FVector FEngine::findEmptySpace(FVector& size)

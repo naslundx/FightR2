@@ -13,7 +13,7 @@ public:
 	bool hasFired();
 	bool canFire();
 	void fire();
-	void tick(float);
+	void tick(const float);
 	void reload();
 	FWeaponType getType();
 	FProjectileType getProjectileType();
