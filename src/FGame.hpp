@@ -21,9 +21,10 @@ public:
 	void setWeaponType(FWeaponType, std::string);
 	void setProjectileType(FProjectileType, std::string);
 	void setPowerupType(FPowerupType, std::string);
+	void setEffectType(FEffectType, std::string);
 
 private:
-	std::shared_ptr<sf::Sprite> loadSprite(std::string fileName, int width, int height);
+	std::shared_ptr<sf::Sprite> loadSprite(const std::string fileName, const int width, const int height);
 	void processEvents();
 	void render();
 
@@ -40,6 +41,7 @@ private:
 	std::map<FWeaponType, std::string> m_weaponTypeMap;
 	std::map<FPowerupType, std::string> m_powerupTypeMap;
 	std::map<FProjectileType, std::string> m_projectileTypeMap;
+	std::map<FEffectType, std::string> m_effectTypeMap;
 };
 
 #endif

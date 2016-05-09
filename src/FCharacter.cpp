@@ -82,6 +82,7 @@ void FCharacter::resurrect()
 	if (m_lives > 0)
 	{
 		m_health = m_maxHealth;
+		m_velocity = FVector();
 	}
 }
 
@@ -174,8 +175,8 @@ void FCharacter::updateAI(std::vector<FCharacter> *characters, std::vector<FProj
 		return;
 	
 	auto other = (*characters)[0];
-	auto myPos = getPosition() + other.getSize() * 0.5f; // TODO Add getCenter() to FObject
-	auto otherPos = other.getPosition() + other.getSize() * 0.5f;
+	auto myPos = getCenter();
+	auto otherPos = other.getCenter();
 	
 	if (m_ladder && std::fabs(otherPos.y - myPos.y) > 10.f)
 	{
@@ -193,6 +194,12 @@ void FCharacter::updateAI(std::vector<FCharacter> *characters, std::vector<FProj
 		else
 			move(FDirection::right);
 	}
+	
+	std::random_device rd;
+	std::mt19937 gen(rd());
+	std::uniform_real_distribution<> randomvalue(0, 1);
+	if (randomvalue(gen) < 0.01f)
+		fire();
 }
 
 void FCharacter::tick(float delta)

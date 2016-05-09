@@ -13,6 +13,7 @@ public:
 	~FObject();
 	
 	FVector& getPosition();
+	FVector getCenter();
 	FVector& getSize();
 	FVector& getVelocity();
 	bool isGravitational();
@@ -27,14 +28,14 @@ public:
 	void setSize(const FVector);
 	void setVelocity(const FVector);
 	void accelerate(const FVector&);
-	void setGravitational(bool);
-	void setVisible(bool);
-	void setDrag(bool);
+	void setGravitational(const bool);
+	void setVisible(const bool);
+	void setDrag(const bool);
 	void freeze();
 	void land();
 	void halt();
 	
-	virtual void tick(float);
+	virtual void tick(const float);
 
 protected:
 	FVector m_position, m_size, m_velocity;

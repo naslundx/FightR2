@@ -59,12 +59,12 @@ void FLevel::loadFromFile(std::string path)
 	//TODO	
 }
 
-FTile FLevel::get(int x, int y)
+FTile FLevel::get(const int x, const int y)
 {
 	return m_data[y * m_width + x];
 }
 
-void FLevel::set(int x, int y, FTile data)
+void FLevel::set(const int x, const int y, const FTile data)
 {
 	m_data[y * m_width + x] = data;
 }

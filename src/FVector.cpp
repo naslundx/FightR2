@@ -42,6 +42,11 @@ FVector FVector::operator * (const double& factor)
 	return FVector(x * factor, y * factor);
 }
 
+FVector FVector::operator / (const double& factor)
+{
+	return FVector(x / factor, y / factor);
+}
+
 FVector& FVector::operator += (const FVector& other)
 {
 	x += other.x;
@@ -63,7 +68,7 @@ FVector& FVector::operator *= (const double& factor)
 	return *this;
 }
 
-bool FVector::clampTo(float minX, float minY, float maxX, float maxY)
+bool FVector::clampTo(const float minX, const float minY, const float maxX, const float maxY)
 {
 	bool result = false;
 	if (x < minX)

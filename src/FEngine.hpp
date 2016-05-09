@@ -12,6 +12,7 @@
 #include "FLevel.hpp"
 #include "FPowerup.hpp"
 #include "FProjectile.hpp"
+#include "FEffect.hpp"
 
 class FEngine
 {
@@ -23,6 +24,7 @@ public:
 	std::vector<FCharacter>& getCharacters();
 	std::vector<FProjectile>& getProjectiles();
 	std::vector<FPowerup>& getPowerups();
+	std::vector<FEffect>& getEffects();
 		
 	void tick(float);
 	bool isRunning();
@@ -31,7 +33,7 @@ public:
 	int getTickCount();
 	float getTime();
 	
-	void createProjectile(FProjectile);
+	void createProjectile(const FVector&, const FVector&, FProjectileType);
 	void createPowerup();
 	void createEffect();
 	
@@ -48,6 +50,7 @@ private:
 	std::vector<FCharacter> m_characters;
 	std::vector<FProjectile> m_projectiles;
 	std::vector<FPowerup> m_powerups;
+	std::vector<FEffect> m_effects;
 	std::shared_ptr<FLevel> m_level;
 	int m_ticks;
 	float m_time;

@@ -17,4 +17,8 @@ enum class FPowerupType {
 	DEBUG
 };
 
+enum class FEffectType {
+	DEBUG	
+};
+
 #endif

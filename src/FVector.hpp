@@ -18,9 +18,10 @@ public:
 	FVector operator - ();
 	double operator * (const FVector&);
 	FVector operator * (const double&);
+	FVector operator / (const double&);
 	FVector& operator *= (const double&);
 	
-	bool clampTo(float, float, float, float);
+	bool clampTo(const float, const float, const float, const float);
 
 	double x, y;
 };

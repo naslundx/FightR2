@@ -7,7 +7,7 @@ FProjectile::FProjectile(FVector position, FVector size, FProjectileType type, f
 	m_time = time;
 }
 
-void FProjectile::tick(float delta)
+void FProjectile::tick(const float delta)
 {
 	m_time -= delta;
 	FObject::tick(delta);

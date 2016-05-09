@@ -13,9 +13,9 @@ public:
 	
 	void clear();
 	void randomize();
-	void loadFromFile(std::string);
-	FTile get(int, int);
-	void set(int, int, FTile);	
+	void loadFromFile(const std::string);
+	FTile get(const int, const int);
+	void set(const int, const int, const FTile);	
 	
 	int getWidth();
 	int getHeight();

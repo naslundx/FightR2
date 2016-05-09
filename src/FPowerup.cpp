@@ -7,7 +7,7 @@ FPowerup::FPowerup(FVector position, FVector size, FPowerupType type, float time
 	m_time = time;
 }
 
-void FPowerup::tick(float delta)
+void FPowerup::tick(const float delta)
 {
 	m_time -= delta;
 	FObject::tick(delta);
