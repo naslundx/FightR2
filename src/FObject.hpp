@@ -3,6 +3,7 @@
 
 #include "FVector.hpp"
 #include "FDirection.hpp"
+#include "FWorld.hpp"
 
 class FObject
 {

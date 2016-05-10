@@ -74,7 +74,7 @@ void FCharacter::kill()
 {
 	m_health = 0;
 	--m_lives;
-	m_resurrect = 3.f;
+	m_resurrect = RESURRECTION_PERIOD;
 }
 
 void FCharacter::resurrect()
@@ -108,27 +108,26 @@ FCharacterType FCharacter::getType()
 
 void FCharacter::move(FDirection direction)
 {
-	const float speed = 0.23f;
 	FVector acceleration;
 	switch (direction)
 	{
 		case up:
 			if (m_ladder)
-				acceleration = FVector(0.f, -speed);
+				acceleration = FVector(0.f, -MOVEMENT_SPEED);
 			else
 				jump();
 			break;
 		case down:
 			if (m_ladder)
-				acceleration = FVector(0.f, speed);
+				acceleration = FVector(0.f, MOVEMENT_SPEED);
 			break;
 		case left:
 			m_facingLeft = true;
-			acceleration = FVector(-speed, 0.f);
+			acceleration = FVector(-MOVEMENT_SPEED, 0.f);
 			break;
 		case right:
 			m_facingLeft = false;
-			acceleration = FVector(speed, 0.f);
+			acceleration = FVector(MOVEMENT_SPEED, 0.f);
 			break;
 	}
 	accelerate(acceleration);
@@ -138,7 +137,7 @@ void FCharacter::jump()
 {
 	if (m_standing && m_jumpCounter == 0.f && fabs(m_velocity.y) < 0.1f)
 	{
-		m_jumpCounter = 0.4f;
+		m_jumpCounter = JUMPING_PERIOD;
 	}
 }
 
@@ -209,7 +208,7 @@ void FCharacter::tick(float delta)
 		if (m_jumpCounter > 0.f)
 		{
 			m_jumpCounter -= delta;
-			FVector jumpVector(0.f, -0.4f);
+			FVector jumpVector(0.f, JUMPING_SPEED);
 			accelerate(jumpVector);		
 		}
 		else

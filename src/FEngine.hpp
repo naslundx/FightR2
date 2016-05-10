@@ -13,6 +13,7 @@
 #include "FPowerup.hpp"
 #include "FProjectile.hpp"
 #include "FEffect.hpp"
+#include "FWorld.hpp"
 
 class FEngine
 {

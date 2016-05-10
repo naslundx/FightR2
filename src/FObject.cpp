@@ -75,7 +75,7 @@ bool FObject::isSolid()
 
 bool FObject::isStill()
 {
-	return m_velocity.getLength() < 0.0001;
+	return m_velocity.getLength() < MINIMUM_STILL_VELOCITY;
 }
 
 bool FObject::hasDrag()
@@ -166,15 +166,15 @@ void FObject::tick(const float delta)
 {
 	if (m_drags)
 	{
-		m_velocity = m_velocity * 0.9f;
+		m_velocity = m_velocity * DRAG;
 	}
 	
-	if (m_velocity.getLength() < 0.01f)
+	if (m_velocity.getLength() < MINIMUM_VELOCITY)
 		m_velocity = FVector();
 		
 	if (isGravitational())
 	{
-		FVector down(0.f, 8.9f * delta);
+		FVector down(0.f, GRAVITY * delta);
 		accelerate(down);
 	}
 	
