@@ -12,6 +12,7 @@
 #include "FLevel.hpp"
 #include "FPowerup.hpp"
 #include "FProjectile.hpp"
+#include "FWorld.hpp"
 
 class FCharacter: public FObject
 {

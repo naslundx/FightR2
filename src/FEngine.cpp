@@ -68,7 +68,7 @@ void FEngine::tick(float delta)
 	std::random_device rd;
 	std::mt19937 gen(rd());
 	std::uniform_real_distribution<> randomvalue(0, 1);
-	if (randomvalue(gen) < 0.005f)
+	if (randomvalue(gen) < CREATING_POWERUP_PROBABILITY)
 		createPowerup();
 	
 	clean();	
@@ -106,7 +106,7 @@ float FEngine::getTime()
 
 void FEngine::createProjectile(const FVector& position, const FVector& velocity, FProjectileType type)
 {
-	auto projectile = FProjectile(position, FVector(10, 10), type, 1000.f, false, false);
+	auto projectile = FProjectile(position, FVector(10, 10), type, 1000.f , false, false);
 	projectile.setVelocity(velocity);
 	m_projectiles.push_back(projectile);
 }
