@@ -1,23 +1,28 @@
 #ifndef __FTYPES_HPP__
 #define __FTYPES_HPP__
 
-enum class FCharacterType { 
+enum class FCharacterType
+{ 
 	DEBUG
 };
 
-enum class FWeaponType {
+enum class FWeaponType
+{
 	DEBUG
 };
 
-enum class FProjectileType {
+enum class FProjectileType
+{
 	DEBUG
 };
 
-enum class FPowerupType {
+enum class FPowerupType
+{
 	DEBUG
 };
 
-enum class FEffectType {
+enum class FEffectType
+{
 	DEBUG	
 };
 

@@ -36,7 +36,7 @@ public:
 	
 	void createProjectile(const FVector&, const FVector&, FProjectileType);
 	void createPowerup();
-	void createEffect();
+	void createEffect(const FVector&, FEffectType);
 	
 private:
 	void clean();
