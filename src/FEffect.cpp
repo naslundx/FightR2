@@ -1,7 +1,7 @@
 #include "FEffect.hpp"
 
 FEffect::FEffect(FVector position, FVector size, FEffectType type, float time = FLT_MAX)
-: FObject(position, size, true, true, true, true)
+: FObject(position, size, false, true, false, false)
 {
 	m_type = type;
 	m_time = time;

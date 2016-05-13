@@ -56,12 +56,11 @@ int main(int argc, char** argv)
 	game.setWeaponType(FWeaponType::DEBUG, "images/Sandstone.png");
 	game.setProjectileType(FProjectileType::DEBUG, "images/bug.png");
 	game.setPowerupType(FPowerupType::DEBUG, "images/gift.png");
+	game.setEffectType(FEffectType::DEBUG, "images/explosion.png");
 	game.setTile(FTile::DEBUG_BLANK, "images/Sandstone.png");
 	game.setTile(FTile::DEBUG_SOLID, "images/Metalplates.png");
 	game.setTile(FTile::DEBUG_LADDER, "images/ladder.png");
 	game.run();
-	
-	while (true);
 
 	return 0;
 }

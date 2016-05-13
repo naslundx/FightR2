@@ -1,5 +1,43 @@
 #include "FEngine.hpp"
 
+FProjectile _createProjectile(FProjectileType type, const FVector& position, const FVector& velocity)
+{
+	if (type == FProjectileType::DEBUG)
+	{
+		auto size = FVector(10, 10);
+		auto projectile = FProjectile(position, size, type, 1000.f, false, false);
+		projectile.setVelocity(velocity);
+		return projectile;
+	}
+	
+	return FProjectile(FVector(), FVector(), FProjectileType::DEBUG, 0.f, false, false);
+}
+
+FPowerup _createPowerup(FPowerupType type, const FVector& position)
+{
+	if (type == FPowerupType::DEBUG)
+	{
+		auto size = FVector(25.f, 25.f);
+		return FPowerup(position, size, type, 10.f);
+	}
+	
+	return FPowerup(FVector(), FVector(), FPowerupType::DEBUG, 0.f);
+}
+
+FEffect _createEffect(FEffectType type, const FVector& center)
+{
+	if (type == FEffectType::DEBUG)
+	{
+		auto size = FVector(96.f, 96.f);
+		auto position = FVector(center.x - size.x / 2.f, center.y - size.y / 2.f);
+		return FEffect(position, size, type, 0.5f);
+	}
+	
+	return FEffect(FVector(), FVector(), FEffectType::DEBUG, 0.f);
+}
+
+// --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- 
+
 FEngine::FEngine(std::shared_ptr<FLevel> level)
 {
 	m_level = level;
@@ -52,6 +90,11 @@ void FEngine::tick(float delta)
 	for (auto &powerup : m_powerups)
 	{
 		powerup.tick(delta);
+	}
+	
+	for (auto &effect : m_effects)
+	{
+		effect.tick(delta);
 	}
 
 	collisionDetection();
@@ -106,22 +149,20 @@ float FEngine::getTime()
 
 void FEngine::createProjectile(const FVector& position, const FVector& velocity, FProjectileType type)
 {
-	auto projectile = FProjectile(position, FVector(10, 10), type, 1000.f , false, false);
-	projectile.setVelocity(velocity);
-	m_projectiles.push_back(projectile);
+	m_projectiles.push_back(_createProjectile(type, position, velocity));
 }
 
 void FEngine::createPowerup()
 {
-	FVector size(25.f, 25.f);
-	FVector position = findEmptySpace(size);
-	FPowerup powerup(position, size, FPowerupType::DEBUG, 10.f);
-	m_powerups.push_back(powerup);
+	FPowerupType type = FPowerupType::DEBUG;
+	auto space = FVector(50.f, 50.f);
+	FVector position = findEmptySpace(space);
+	m_powerups.push_back(_createPowerup(type, position));
 }
 
-void FEngine::createEffect()
+void FEngine::createEffect(const FVector& position, FEffectType type)
 {
-	//TODO
+	m_effects.push_back(_createEffect(type, position));
 }
 
 void FEngine::clean()
@@ -192,9 +233,11 @@ void FEngine::collisionDetection()
 		{
 			if (character.getHealth() > 0 && it->intersects(character))
 			{
+				createEffect(it->getPosition(), FEffectType::DEBUG);				
 				it = m_projectiles.erase(it);
 				character.hurt(10);
 				erased = true;
+				break;
 			}
 		}
 		if (!erased)
@@ -209,7 +252,10 @@ void FEngine::collisionDetection()
 		bool outside = position.clampTo(0.f, 0.f, m_level->getWidth() * tileSize - size.x, m_level->getHeight() * tileSize - size.y);
 
 		if (outside || collisionLeft(projectile) || collisionRight(projectile) || collisionUp(projectile) || collisionDown(projectile))
-			m_projectiles.erase(it);
+		{
+			createEffect(it->getPosition(), FEffectType::DEBUG);
+			it = m_projectiles.erase(it);
+		}
 		else
 			++it;
 	}
